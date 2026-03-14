@@ -1,12 +1,27 @@
 <script lang="ts">
+	let locale = $state('en');
 	let time = $state('--:--');
 	let date = $state('');
 
 	$effect(() => {
+		// Init from localStorage (client-only)
+		const saved = localStorage.getItem('tesflix-lang');
+		locale = saved || navigator.language.split('-')[0] || 'en';
+
+		const handler = (e: Event) => {
+			const detail = (e as CustomEvent<{ lang: string }>).detail;
+			if (detail?.lang) locale = detail.lang;
+		};
+		window.addEventListener('tesflix:langchange', handler);
+		return () => window.removeEventListener('tesflix:langchange', handler);
+	});
+
+	$effect(() => {
+		const currentLocale = locale;
 		const update = () => {
 			const d = new Date();
-			time = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
-			date = d.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long' });
+			time = d.toLocaleTimeString(currentLocale, { hour: '2-digit', minute: '2-digit', hour12: false });
+			date = d.toLocaleDateString(currentLocale, { weekday: 'long', day: 'numeric', month: 'long' });
 		};
 		update();
 		const interval = setInterval(update, 1000);
