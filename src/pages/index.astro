@@ -128,7 +128,10 @@ const categories = await Promise.all(
 						<button class="header-btn" id="btn-selfhost" data-i18n="btn.selfhost">Self-Host</button>
 					</div>
 					<button class="header-btn header-btn--support" id="btn-support">
-						<svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+						<span class="support-btn-heart" aria-hidden="true">
+							<span class="support-btn-ping"></span>
+							❤️
+						</span>
 						<span data-i18n="btn.support">Support this project</span>
 					</button>
 				</div>
@@ -283,36 +286,59 @@ const categories = await Promise.all(
 
 			<!-- Support Modal -->
 			<div class="modal-overlay" id="modal-support" aria-hidden="true">
-				<div class="modal-box modal-box--support" role="dialog" aria-labelledby="support-title">
+				<div class="modal-box" role="dialog" aria-labelledby="support-title">
 					<button class="modal-close" data-close="modal-support" aria-label="Close">&times;</button>
-					<div class="support-header">
-						<svg viewBox="0 0 24 24" fill="currentColor" class="support-hero-icon" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-						<h2 id="support-title" class="modal-title" data-i18n="support.title">Support this project</h2>
+
+					<!-- View: platform list -->
+					<div id="support-view-list">
+						<div class="support-header">
+							<svg viewBox="0 0 24 24" fill="currentColor" class="support-hero-icon" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+							<h2 id="support-title" class="modal-title" data-i18n="support.title">Support this project</h2>
+						</div>
+						<p class="modal-text support-desc" data-i18n="support.desc">Tesflix is free and open source. If it saves you time or brings you joy, consider supporting its development — it keeps the project alive.</p>
+						<div class="support-options">
+							<button class="support-card" data-platform="paypal">
+								<div class="support-card-icon support-card-icon--paypal">
+									<img src="https://cdn.simpleicons.org/paypal/00457C" width="22" height="22" alt="PayPal" />
+								</div>
+								<span class="support-card-name">PayPal</span>
+								<svg class="support-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+							</button>
+							<button class="support-card" data-platform="bmc">
+								<div class="support-card-icon support-card-icon--bmc">
+									<img src="https://cdn.simpleicons.org/buymeacoffee/FFDD00" width="22" height="22" alt="Buy Me a Coffee" />
+								</div>
+								<span class="support-card-name">Buy Me a Coffee</span>
+								<svg class="support-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+							</button>
+							<button class="support-card" data-platform="github">
+								<div class="support-card-icon support-card-icon--github">
+									<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+								</div>
+								<span class="support-card-name">GitHub Sponsors</span>
+								<svg class="support-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+							</button>
+						</div>
 					</div>
-					<p class="modal-text support-desc" data-i18n="support.desc">Tesflix is free and open source. If it saves you time or brings you joy, consider buying me a coffee — it keeps the project alive.</p>
-					<div class="support-options">
-						<a href="https://github.com/sponsors/crstian19" target="_blank" rel="noopener noreferrer" class="support-card">
-							<div class="support-card-icon support-card-icon--github">
-								<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+
+					<!-- View: QR detail -->
+					<div id="support-view-detail" class="support-view--hidden">
+						<button class="support-back" id="support-back">
+							<span data-i18n="support.back">← Back</span>
+						</button>
+						<div class="support-qr-wrap">
+							<p class="support-platform-label" id="support-platform-label"></p>
+							<div class="support-qr-frame">
+								<img class="support-qr-img" id="support-qr-img" src="" alt="QR Code" width="200" height="200" />
 							</div>
-							<span class="support-card-name">GitHub Sponsors</span>
-							<svg class="support-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-						</a>
-						<a href="https://ko-fi.com/crstian19" target="_blank" rel="noopener noreferrer" class="support-card">
-							<div class="support-card-icon support-card-icon--kofi">
-								<img src="https://cdn.simpleicons.org/kofi/FF5E5B" width="22" height="22" alt="Ko-fi" />
-							</div>
-							<span class="support-card-name">Ko-fi</span>
-							<svg class="support-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-						</a>
-						<a href="https://buymeacoffee.com/crstian19" target="_blank" rel="noopener noreferrer" class="support-card">
-							<div class="support-card-icon support-card-icon--bmc">
-								<img src="https://cdn.simpleicons.org/buymeacoffee/FFDD00" width="22" height="22" alt="Buy Me a Coffee" />
-							</div>
-							<span class="support-card-name">Buy Me a Coffee</span>
-							<svg class="support-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-						</a>
+							<p class="support-qr-caption" data-i18n="support.scan">Scan with your phone to donate</p>
+							<a class="support-open-btn" id="support-open-btn" href="#" target="_blank" rel="noopener noreferrer">
+								<span data-i18n="support.open">Open link</span>
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+							</a>
+						</div>
 					</div>
+
 				</div>
 			</div>
 
@@ -479,7 +505,10 @@ const categories = await Promise.all(
 					'footer.legal': 'Legal',
 				'fab.tooltip': 'Add new app',
 				'support.title': 'Support this project',
-				'support.desc': 'Tesflix is free and open source. If it saves you time or brings you joy, consider buying me a coffee — it keeps the project alive.',
+				'support.desc': 'Tesflix is free and open source. If it saves you time or brings you joy, consider supporting its development — it keeps the project alive.',
+					'support.back': '← Back',
+					'support.scan': 'Scan with your phone to donate',
+					'support.open': 'Open link',
 				},
 				no: {
 					'btn.about': 'Om',
@@ -526,6 +555,9 @@ const categories = await Promise.all(
 				'fab.tooltip': 'Legg til ny app',
 				'support.title': 'Støtt dette prosjektet',
 				'support.desc': 'Tesflix er gratis og åpen kildekode. Hvis det sparer deg tid eller gir deg glede, vurder å kjøpe meg en kaffe — det holder prosjektet i live.',
+				'support.back': '← Tilbake',
+				'support.scan': 'Skann med telefonen for å donere',
+				'support.open': 'Åpne lenke',
 				},
 				de: {
 					'btn.about': 'Über',
@@ -572,6 +604,9 @@ const categories = await Promise.all(
 				'fab.tooltip': 'App hinzufügen',
 				'support.title': 'Dieses Projekt unterstützen',
 				'support.desc': 'Tesflix ist kostenlos und Open Source. Wenn es dir Zeit spart oder Freude bereitet, erwäge mir einen Kaffee zu kaufen — das hält das Projekt am Leben.',
+				'support.back': '← Zurück',
+				'support.scan': 'Mit dem Handy scannen um zu spenden',
+				'support.open': 'Link öffnen',
 				},
 				sv: {
 					'btn.about': 'Om',
@@ -618,6 +653,9 @@ const categories = await Promise.all(
 				'fab.tooltip': 'Lägg till ny app',
 				'support.title': 'Stöd det här projektet',
 				'support.desc': 'Tesflix är gratis och öppen källkod. Om det sparar din tid eller ger dig glädje, överväg att köpa mig en kaffe — det håller projektet vid liv.',
+				'support.back': '← Tillbaka',
+				'support.scan': 'Skanna med din telefon för att donera',
+				'support.open': 'Öppna länk',
 				},
 				nl: {
 					'btn.about': 'Over',
@@ -664,6 +702,9 @@ const categories = await Promise.all(
 				'fab.tooltip': 'App toevoegen',
 				'support.title': 'Steun dit project',
 				'support.desc': 'Tesflix is gratis en open source. Als het je tijd bespaart of vreugde brengt, overweeg dan om me een koffie te kopen — dat houdt het project in leven.',
+				'support.back': '← Terug',
+				'support.scan': 'Scan met je telefoon om te doneren',
+				'support.open': 'Link openen',
 				},
 				fr: {
 					'btn.about': 'À propos',
@@ -710,6 +751,9 @@ const categories = await Promise.all(
 				'fab.tooltip': 'Ajouter une app',
 				'support.title': 'Soutenir ce projet',
 				'support.desc': "Tesflix est gratuit et open source. Si cela vous fait gagner du temps ou vous apporte de la joie, envisagez de m\'offrir un café — cela maintient le projet en vie.",
+				'support.back': '← Retour',
+				'support.scan': 'Scannez avec votre téléphone pour faire un don',
+				'support.open': 'Ouvrir le lien',
 				},
 				da: {
 					'btn.about': 'Om',
@@ -756,6 +800,9 @@ const categories = await Promise.all(
 				'fab.tooltip': 'Tilføj ny app',
 				'support.title': 'Støt dette projekt',
 				'support.desc': 'Tesflix er gratis og open source. Hvis det sparer dig tid eller bringer dig glæde, overvej at købe mig en kop kaffe — det holder projektet i live.',
+				'support.back': '← Tilbage',
+				'support.scan': 'Scan med din telefon for at donere',
+				'support.open': 'Åbn link',
 				},
 				fi: {
 					'btn.about': 'Tietoja',
@@ -802,6 +849,9 @@ const categories = await Promise.all(
 				'fab.tooltip': 'Lisää uusi sovellus',
 				'support.title': 'Tue tätä projektia',
 				'support.desc': 'Tesflix on ilmainen ja avoimen lähdekoodin projekti. Jos se säästää aikaasi tai tuo iloa, harkitse kahvin ostamista minulle — se pitää projektin elossa.',
+				'support.back': '← Takaisin',
+				'support.scan': 'Skannaa puhelimellasi lahjoittaaksesi',
+				'support.open': 'Avaa linkki',
 				},
 				it: {
 					'btn.about': 'Info',
@@ -848,6 +898,9 @@ const categories = await Promise.all(
 				'fab.tooltip': 'Aggiungi app',
 				'support.title': 'Supporta questo progetto',
 				'support.desc': 'Tesflix è gratuito e open source. Se ti fa risparmiare tempo o ti porta gioia, considera di offrirmi un caffè — mantiene vivo il progetto.',
+				'support.back': '← Indietro',
+				'support.scan': 'Scansiona con il tuo telefono per donare',
+				'support.open': 'Apri link',
 				},
 				es: {
 					'btn.about': 'Acerca de',
@@ -894,6 +947,9 @@ const categories = await Promise.all(
 				'fab.tooltip': 'Añadir nueva app',
 				'support.title': 'Apoya este proyecto',
 				'support.desc': 'Tesflix es gratuito y de código abierto. Si te ahorra tiempo o te trae alegría, considera invitarme a un café — mantiene vivo el proyecto.',
+				'support.back': '← Volver',
+				'support.scan': 'Escanea con tu móvil para donar',
+				'support.open': 'Abrir enlace',
 				},
 				pt: {
 					'btn.about': 'Sobre',
@@ -940,6 +996,9 @@ const categories = await Promise.all(
 				'fab.tooltip': 'Adicionar app',
 				'support.title': 'Apoie este projeto',
 				'support.desc': 'Tesflix é gratuito e de código aberto. Se economiza seu tempo ou traz alegria, considere me pagar um café — isso mantém o projeto vivo.',
+				'support.back': '← Voltar',
+				'support.scan': 'Escaneie com seu celular para doar',
+				'support.open': 'Abrir link',
 				},
 				pl: {
 					'btn.about': 'O nas',
@@ -986,6 +1045,9 @@ const categories = await Promise.all(
 				'fab.tooltip': 'Dodaj aplikację',
 				'support.title': 'Wesprzyj ten projekt',
 				'support.desc': 'Tesflix jest bezpłatny i open source. Jeśli oszczędza Ci czas lub sprawia radość, rozważ postawienie mi kawy — to utrzymuje projekt przy życiu.',
+				'support.back': '← Wróć',
+				'support.scan': 'Zeskanuj telefonem, aby przekazać darowiznę',
+				'support.open': 'Otwórz link',
 				},
 				zh: {
 					'btn.about': '关于',
@@ -1032,6 +1094,9 @@ const categories = await Promise.all(
 				'fab.tooltip': '添加应用',
 				'support.title': '支持这个项目',
 				'support.desc': 'Tesflix 是免费的开源项目。如果它为您节省了时间或带来了乐趣，请考虑请我喝杯咖啡——这能让项目持续下去。',
+				'support.back': '← 返回',
+				'support.scan': '用手机扫描二维码捐款',
+				'support.open': '打开链接',
 				},
 			};
 
@@ -1120,6 +1185,39 @@ const categories = await Promise.all(
 			document.getElementById('btn-faq')?.addEventListener('click', () => openModal('modal-faq'));
 			document.getElementById('btn-selfhost')?.addEventListener('click', () => openModal('modal-selfhost'));
 			document.getElementById('btn-support')?.addEventListener('click', () => openModal('modal-support'));
+
+			// ── Support modal two-view logic ──
+			const SUPPORT_PLATFORMS: Record<string, { name: string; url: string }> = {
+				github: { name: 'GitHub Sponsors', url: 'https://github.com/sponsors/crstian19' },
+				bmc:    { name: 'Buy Me a Coffee',  url: 'https://buymeacoffee.com/crstian' },
+				paypal: { name: 'PayPal',            url: 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MUW2XFMQB2782' },
+			};
+
+			function showSupportDetail(platform: string) {
+				const p = SUPPORT_PLATFORMS[platform];
+				if (!p) return;
+				const qr = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=000000&bgcolor=FFFFFF&data=' + encodeURIComponent(p.url);
+				(document.getElementById('support-qr-img') as HTMLImageElement).src = qr;
+				(document.getElementById('support-open-btn') as HTMLAnchorElement).href = p.url;
+				document.getElementById('support-platform-label')!.textContent = p.name;
+				document.getElementById('support-view-list')!.classList.add('support-view--hidden');
+				document.getElementById('support-view-detail')!.classList.remove('support-view--hidden');
+			}
+
+			function showSupportList() {
+				document.getElementById('support-view-list')!.classList.remove('support-view--hidden');
+				document.getElementById('support-view-detail')!.classList.add('support-view--hidden');
+			}
+
+			document.querySelectorAll<HTMLElement>('.support-card').forEach(btn => {
+				btn.addEventListener('click', () => showSupportDetail(btn.dataset.platform!));
+			});
+			document.getElementById('support-back')?.addEventListener('click', showSupportList);
+
+			// Reset to list when modal closes
+			document.querySelector('[data-close="modal-support"]')?.addEventListener('click', () => {
+				setTimeout(showSupportList, 300);
+			});
 
 			document.querySelectorAll<HTMLElement>('[data-close]').forEach(btn => {
 				btn.addEventListener('click', () => closeModal(btn.dataset.close!));
@@ -2348,7 +2446,7 @@ const categories = await Promise.all(
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		gap: 0.35rem;
+		gap: 0.5rem;
 		width: 100%;
 		color: #a855f7;
 		border-color: rgba(168, 85, 247, 0.35);
@@ -2356,8 +2454,33 @@ const categories = await Promise.all(
 
 	.header-btn--support:hover {
 		color: #c084fc;
-		border-color: rgba(168, 85, 247, 0.6);
-		background: rgba(168, 85, 247, 0.08);
+		border-color: rgba(168, 85, 247, 0.5);
+		background: rgba(168, 85, 247, 0.07);
+	}
+
+	@keyframes support-ping {
+		0%         { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+		75%, 100%  { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+	}
+
+	.support-btn-heart {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		animation: fab-bounce 3.5s ease-in-out infinite;
+	}
+
+	.support-btn-ping {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 1.2rem;
+		height: 1.2rem;
+		border-radius: 50%;
+		background: rgba(168, 85, 247, 0.45);
+		animation: support-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+		pointer-events: none;
 	}
 
 	/* ── Modals ── */
@@ -2573,6 +2696,8 @@ const categories = await Promise.all(
 
 
 	/* Support */
+	.support-view--hidden { display: none; }
+
 	.support-header {
 		display: flex;
 		align-items: center;
@@ -2587,9 +2712,7 @@ const categories = await Promise.all(
 		flex-shrink: 0;
 	}
 
-	.support-header .modal-title {
-		margin-bottom: 0;
-	}
+	.support-header .modal-title { margin-bottom: 0; }
 
 	.support-desc {
 		margin-top: 0.25rem;
@@ -2607,11 +2730,13 @@ const categories = await Promise.all(
 		align-items: center;
 		gap: 0.85rem;
 		padding: 0.85rem 1rem;
+		width: 100%;
 		background: rgba(255, 255, 255, 0.03);
 		border: 1px solid var(--border);
 		border-radius: 12px;
-		text-decoration: none;
 		color: var(--muted);
+		cursor: pointer;
+		font-family: inherit;
 		transition: color 150ms ease, border-color 150ms ease, background 150ms ease, transform 150ms ease;
 	}
 
@@ -2632,41 +2757,98 @@ const categories = await Promise.all(
 		flex-shrink: 0;
 	}
 
-	.support-card-icon--github {
-		background: rgba(255, 255, 255, 0.06);
-		color: var(--text);
-	}
-
-	.support-card-icon--github svg {
-		width: 1.2rem;
-		height: 1.2rem;
-	}
-
-	.support-card-icon--kofi {
-		background: rgba(255, 94, 91, 0.12);
-	}
-
-	.support-card-icon--bmc {
-		background: rgba(255, 221, 0, 0.1);
-	}
+	.support-card-icon--github { background: rgba(255,255,255,0.06); color: var(--text); }
+	.support-card-icon--github svg { width: 1.2rem; height: 1.2rem; }
+	.support-card-icon--bmc { background: rgba(255,221,0,0.1); }
+	.support-card-icon--paypal { background: rgba(0,69,124,0.2); }
 
 	.support-card-name {
 		flex: 1;
 		font-size: 0.875rem;
 		font-weight: 600;
 		letter-spacing: 0.01em;
+		text-align: left;
 	}
 
 	.support-card-arrow {
-		width: 1rem;
-		height: 1rem;
-		opacity: 0.4;
+		width: 1rem; height: 1rem; opacity: 0.4;
 		transition: opacity 150ms ease, transform 150ms ease;
 	}
+	.support-card:hover .support-card-arrow { opacity: 0.8; transform: translateX(2px); }
 
-	.support-card:hover .support-card-arrow {
-		opacity: 0.8;
-		transform: translateX(2px);
+	/* QR detail view */
+	.support-back {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		background: none;
+		border: none;
+		color: var(--muted);
+		cursor: pointer;
+		font-family: inherit;
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		padding: 0;
+		margin-bottom: 1.25rem;
+		transition: color 150ms ease;
+	}
+	.support-back:hover { color: var(--text); }
+
+	.support-qr-wrap {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.support-platform-label {
+		font-size: 1rem;
+		font-weight: 700;
+		color: var(--text);
+		margin: 0;
+	}
+
+	.support-qr-frame {
+		background: #fff;
+		border-radius: 16px;
+		padding: 0.75rem;
+		box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
+	}
+
+	.support-qr-img {
+		display: block;
+		border-radius: 8px;
+	}
+
+	.support-qr-caption {
+		font-size: 0.8rem;
+		color: var(--muted);
+		margin: 0;
+	}
+
+	.support-open-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.55rem 1.25rem;
+		background: rgba(168, 85, 247, 0.12);
+		border: 1px solid rgba(168, 85, 247, 0.35);
+		border-radius: 999px;
+		color: #a855f7;
+		text-decoration: none;
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+		margin-top: 0.25rem;
+	}
+	.support-open-btn:hover {
+		background: rgba(168, 85, 247, 0.2);
+		border-color: rgba(168, 85, 247, 0.6);
+		color: #c084fc;
 	}
 
 	.project-soon-badge {
