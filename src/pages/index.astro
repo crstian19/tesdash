@@ -13,6 +13,7 @@ interface App {
 	logo: string;
 	color?: string;
 	regions?: string[];
+	fullscreen?: boolean;
 }
 
 interface Category {
@@ -95,7 +96,7 @@ const categories = await Promise.all(
 			cat.apps.map(async (app) => ({
 				...app,
 				color: await extractColor(app.logo, app.color ?? '#ffffff'),
-				href: `${YOUTUBE_REDIRECT}${encodeURIComponent(app.url)}`
+				href: app.fullscreen === false ? app.url : `${YOUTUBE_REDIRECT}${encodeURIComponent(app.url)}`
 			}))
 		)
 	}))
