@@ -262,25 +262,13 @@ const categories = await Promise.all(
 				<div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="selfhost-title">
 					<button class="modal-close" data-close="modal-selfhost" aria-label="Close">&times;</button>
 					<h2 id="selfhost-title" class="modal-title" data-i18n="selfhost.title">Self-Hosting</h2>
-					<dl class="faq-list">
-						<dt data-i18n="selfhost.q1">How does the fullscreen trick work?</dt>
-						<dd data-i18n-html="selfhost.a1">Every app link is wrapped with a YouTube redirect URL (<code>youtube.com/redirect?q=…</code>). Tesla's browser launches YouTube links in fullscreen, so this triggers full-screen mode for any destination.</dd>
-
-						<dt data-i18n="selfhost.q2">How do I add or remove apps?</dt>
-						<dd data-i18n-html="selfhost.a2">Edit <code>src/data/config.yml</code>. Each app needs a <code>name</code>, <code>url</code>, and <code>logo</code> (local path under <code>public/logos/</code> or a remote URL). No code changes needed — just rebuild.</dd>
-
-						<dt data-i18n="selfhost.q3">How are card accent colors determined?</dt>
-						<dd data-i18n-html="selfhost.a3">At build time, Tesdash extracts the most saturated pixel from each app's logo. You can override this by adding a <code>color: '#hexcode'</code> field to any app entry in the config.</dd>
-
-						<dt data-i18n="selfhost.q4">What do I need to run it?</dt>
-						<dd data-i18n-html="selfhost.a4">Node.js or Bun. Run <code>bun install</code> then <code>bun run build</code> to generate a static <code>/dist</code> folder you can deploy anywhere (Nginx, Caddy, Netlify, etc.).</dd>
-
-						<dt data-i18n="selfhost.q5">Can I add custom categories?</dt>
-						<dd data-i18n-html="selfhost.a5">Yes. In <code>config.yml</code> add a new entry under <code>categories</code> with a <code>name</code> and list of <code>apps</code>. The dashboard rebuilds automatically.</dd>
-
-						<dt data-i18n="selfhost.q6">Is the source code available?</dt>
-						<dd data-i18n-html="selfhost.a6">Yes, Tesdash is open source. You can find it on GitHub and fork it to make it entirely your own.</dd>
-					</dl>
+					<div class="selfhost-content">
+						<p class="selfhost-desc" data-i18n="selfhost.desc">Tesdash is open source and fully self-hostable. Find setup instructions, configuration options, and more on the GitHub repository.</p>
+						<a href="https://github.com/crstian19/tesdash" target="_blank" rel="noopener noreferrer" class="selfhost-github-btn">
+							<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							GitHub
+						</a>
+					</div>
 				</div>
 			</div>
 
@@ -560,18 +548,7 @@ const categories = await Promise.all(
 					'faq.q11': 'Can an app open without fullscreen?',
 					'faq.a11': 'Yes. When adding a custom app via the + button, toggle off Fullscreen to open it directly in the browser. Self-hosted users can also set &lt;code&gt;fullscreen: false&lt;/code&gt; on any app in &lt;code&gt;config.yml&lt;/code&gt;.',
 					'selfhost.title': 'Self-Hosting',
-					'selfhost.q1': 'How does the fullscreen trick work?',
-					'selfhost.a1': 'Every app link is wrapped with a YouTube redirect URL (<code>youtube.com/redirect?q=…</code>). Tesla\'s browser launches YouTube links in fullscreen, so this triggers full-screen mode for any destination.',
-					'selfhost.q2': 'How do I add or remove apps?',
-					'selfhost.a2': 'Edit <code>src/data/config.yml</code>. Each app needs a <code>name</code>, <code>url</code>, and <code>logo</code> (local path under <code>public/logos/</code> or a remote URL). No code changes needed — just rebuild.',
-					'selfhost.q3': 'How are card accent colors determined?',
-					'selfhost.a3': "At build time, Tesdash extracts the most saturated pixel from each app's logo. You can override this by adding a <code>color: '#hexcode'</code> field to any app entry in the config.",
-					'selfhost.q4': 'What do I need to run it?',
-					'selfhost.a4': 'Node.js or Bun. Run <code>bun install</code> then <code>bun run build</code> to generate a static <code>/dist</code> folder you can deploy anywhere (Nginx, Caddy, Netlify, etc.).',
-					'selfhost.q5': 'Can I add custom categories?',
-					'selfhost.a5': 'Yes. In <code>config.yml</code> add a new entry under <code>categories</code> with a <code>name</code> and list of <code>apps</code>. The dashboard rebuilds automatically.',
-					'selfhost.q6': 'Is the source code available?',
-					'selfhost.a6': 'Yes, Tesdash is open source. You can find it on GitHub and fork it to make it entirely your own.',
+					'selfhost.desc': 'Tesdash is open source and fully self-hostable. Find setup instructions, configuration options, and more on the GitHub repository.',
 					'footer.madeby': 'Made with ❤️ by',
 					'footer.from': 'from',
 					'footer.legal': 'Legal',
@@ -623,18 +600,7 @@ const categories = await Promise.all(
 					'faq.q11': 'Kan en app åpnes uten fullskjerm?',
 					'faq.a11': 'Ja. Når du legger til en egendefinert app via +-knappen, slå av Fullskjerm for å åpne den direkte i nettleseren. Selvhostende brukere kan også sette &lt;code&gt;fullscreen: false&lt;/code&gt; på en hvilken som helst app i &lt;code&gt;config.yml&lt;/code&gt;.',
 					'selfhost.title': 'Selvhosting',
-					'selfhost.q1': 'Hvordan fungerer fullskjerm-trikset?',
-					'selfhost.a1': 'Hver app-lenke er pakket inn med en YouTube-omdirigerings-URL (<code>youtube.com/redirect?q=…</code>). Teslaens nettleser starter YouTube-lenker i fullskjerm, så dette utløser fullskjermmodus for ethvert mål.',
-					'selfhost.q2': 'Hvordan legger jeg til eller fjerner apper?',
-					'selfhost.a2': 'Rediger <code>src/data/config.yml</code>. Hver app trenger et <code>name</code>, <code>url</code> og <code>logo</code> (lokal sti under <code>public/logos/</code> eller en ekstern URL). Ingen kodeendringer nødvendig — bare bygg på nytt.',
-					'selfhost.q3': 'Hvordan bestemmes kortets aksentfarger?',
-					'selfhost.a3': "Ved byggetid trekker Tesdash ut det mest mettede pikselet fra hver apps logo. Du kan overstyre dette ved å legge til et <code>color: '#hexcode'</code>-felt i en app-post i konfigurasjonen.",
-					'selfhost.q4': 'Hva trenger jeg for å kjøre det?',
-					'selfhost.a4': 'Node.js eller Bun. Kjør <code>bun install</code> deretter <code>bun run build</code> for å generere en statisk <code>/dist</code>-mappe du kan distribuere hvor som helst (Nginx, Caddy, Netlify, osv.).',
-					'selfhost.q5': 'Kan jeg legge til egendefinerte kategorier?',
-					'selfhost.a5': 'Ja. I <code>config.yml</code> legg til en ny oppføring under <code>categories</code> med et <code>name</code> og en liste over <code>apps</code>. Dashbordet bygges automatisk på nytt.',
-					'selfhost.q6': 'Er kildekoden tilgjengelig?',
-					'selfhost.a6': 'Ja, Tesdash er åpen kildekode. Du kan finne det på GitHub og forke det for å gjøre det helt til ditt eget.',
+					'selfhost.desc': 'Tesdash er åpen kildekode og kan hostes selv. Finn instruksjoner, konfigurasjonsalternativer og mer på GitHub-repositoriet.',
 					'footer.madeby': 'Laget med ❤️ av',
 					'footer.from': 'fra',
 					'footer.legal': 'Juridisk',
@@ -686,18 +652,7 @@ const categories = await Promise.all(
 					'faq.q11': 'Kann eine App ohne Vollbild geöffnet werden?',
 					'faq.a11': 'Ja. Wenn du eine eigene App über die +-Schaltfläche hinzufügst, deaktiviere Vollbild, um sie direkt im Browser zu öffnen. Selbst-hostende Benutzer können auch &lt;code&gt;fullscreen: false&lt;/code&gt; in &lt;code&gt;config.yml&lt;/code&gt; setzen.',
 					'selfhost.title': 'Selbst-Hosting',
-					'selfhost.q1': 'Wie funktioniert der Vollbild-Trick?',
-					'selfhost.a1': 'Jeder App-Link ist mit einer YouTube-Weiterleitungs-URL (<code>youtube.com/redirect?q=…</code>) umhüllt. Der Browser des Tesla startet YouTube-Links im Vollbildmodus, sodass dies den Vollbildmodus für jedes Ziel auslöst.',
-					'selfhost.q2': 'Wie füge ich Apps hinzu oder entferne sie?',
-					'selfhost.a2': 'Bearbeiten Sie <code>src/data/config.yml</code>. Jede App benötigt einen <code>name</code>, eine <code>url</code> und ein <code>logo</code> (lokaler Pfad unter <code>public/logos/</code> oder eine Remote-URL). Keine Code-Änderungen erforderlich — einfach neu erstellen.',
-					'selfhost.q3': 'Wie werden die Akzentfarben der Karten bestimmt?',
-					'selfhost.a3': "Beim Build extrahiert Tesdash das gesättigtste Pixel aus dem Logo jeder App. Sie können dies überschreiben, indem Sie einem App-Eintrag in der Konfiguration ein <code>color: '#hexcode'</code>-Feld hinzufügen.",
-					'selfhost.q4': 'Was benötige ich, um es auszuführen?',
-					'selfhost.a4': 'Node.js oder Bun. Führen Sie <code>bun install</code> und dann <code>bun run build</code> aus, um einen statischen <code>/dist</code>-Ordner zu erstellen, den Sie überall bereitstellen können (Nginx, Caddy, Netlify, usw.).',
-					'selfhost.q5': 'Kann ich benutzerdefinierte Kategorien hinzufügen?',
-					'selfhost.a5': 'Ja. In <code>config.yml</code> fügen Sie einen neuen Eintrag unter <code>categories</code> mit einem <code>name</code> und einer Liste von <code>apps</code> hinzu. Das Dashboard wird automatisch neu erstellt.',
-					'selfhost.q6': 'Ist der Quellcode verfügbar?',
-					'selfhost.a6': 'Ja, Tesdash ist Open Source. Sie können es auf GitHub finden und forken, um es ganz Ihrem eigenen zu machen.',
+					'selfhost.desc': 'Tesdash ist Open Source und vollständig selbst hostbar. Setup-Anleitungen, Konfigurationsoptionen und mehr finden Sie auf dem GitHub-Repository.',
 					'footer.madeby': 'Erstellt mit ❤️ von',
 					'footer.from': 'aus',
 					'footer.legal': 'Impressum',
@@ -749,18 +704,7 @@ const categories = await Promise.all(
 					'faq.q11': 'Kan en app öppnas utan helskärm?',
 					'faq.a11': 'Ja. När du lägger till en anpassad app via +-knappen, stäng av Helskärm för att öppna den direkt i webbläsaren. Självhostande användare kan också sätta &lt;code&gt;fullscreen: false&lt;/code&gt; på valfri app i &lt;code&gt;config.yml&lt;/code&gt;.',
 					'selfhost.title': 'Självhosting',
-					'selfhost.q1': 'Hur fungerar helskärmsknepet?',
-					'selfhost.a1': 'Varje applänk är inpackad med en YouTube-omdirigerings-URL (<code>youtube.com/redirect?q=…</code>). Teslas webbläsare startar YouTube-länkar i helskärm, så detta utlöser helskärmsläge för vilket mål som helst.',
-					'selfhost.q2': 'Hur lägger jag till eller tar bort appar?',
-					'selfhost.a2': 'Redigera <code>src/data/config.yml</code>. Varje app behöver ett <code>name</code>, <code>url</code> och <code>logo</code> (lokal sökväg under <code>public/logos/</code> eller en fjärr-URL). Inga kodändringar behövs — bygg bara om.',
-					'selfhost.q3': 'Hur bestäms kortens accentfärger?',
-					'selfhost.a3': "Vid byggtid extraherar Tesdash den mest mättade pixeln från varje apps logotyp. Du kan åsidosätta detta genom att lägga till ett <code>color: '#hexcode'</code>-fält i en apppost i konfigurationen.",
-					'selfhost.q4': 'Vad behöver jag för att köra det?',
-					'selfhost.a4': 'Node.js eller Bun. Kör <code>bun install</code> sedan <code>bun run build</code> för att generera en statisk <code>/dist</code>-mapp som du kan driftsätta var som helst (Nginx, Caddy, Netlify, osv.).',
-					'selfhost.q5': 'Kan jag lägga till anpassade kategorier?',
-					'selfhost.a5': 'Ja. I <code>config.yml</code> lägg till en ny post under <code>categories</code> med ett <code>name</code> och en lista med <code>apps</code>. Instrumentpanelen byggs automatiskt om.',
-					'selfhost.q6': 'Är källkoden tillgänglig?',
-					'selfhost.a6': 'Ja, Tesdash är öppen källkod. Du kan hitta det på GitHub och forka det för att göra det helt till ditt eget.',
+					'selfhost.desc': 'Tesdash är öppen källkod och kan hostas lokalt. Hitta installationsanvisningar, konfigurationsalternativ och mer på GitHub-repositoriet.',
 					'footer.madeby': 'Skapad med ❤️ av',
 					'footer.from': 'från',
 					'footer.legal': 'Juridik',
@@ -812,18 +756,7 @@ const categories = await Promise.all(
 					'faq.q11': 'Kan een app zonder volledig scherm openen?',
 					'faq.a11': 'Ja. Wanneer je een aangepaste app toevoegt via de +-knop, zet Volledig scherm uit om hem direct in de browser te openen. Zelf-hostende gebruikers kunnen ook &lt;code&gt;fullscreen: false&lt;/code&gt; instellen in &lt;code&gt;config.yml&lt;/code&gt;.',
 					'selfhost.title': 'Zelf hosten',
-					'selfhost.q1': 'Hoe werkt de volledig-scherm-truc?',
-					'selfhost.a1': 'Elke app-link is ingepakt met een YouTube-omleidings-URL (<code>youtube.com/redirect?q=…</code>). De browser van Tesla start YouTube-links in volledig scherm, waardoor de volledig-schermmodus voor elke bestemming wordt geactiveerd.',
-					'selfhost.q2': 'Hoe voeg ik apps toe of verwijder ik ze?',
-					'selfhost.a2': 'Bewerk <code>src/data/config.yml</code>. Elke app heeft een <code>name</code>, <code>url</code> en <code>logo</code> nodig (lokaal pad onder <code>public/logos/</code> of een externe URL). Geen codewijzigingen nodig — gewoon opnieuw bouwen.',
-					'selfhost.q3': 'Hoe worden de accentkleuren van kaarten bepaald?',
-					'selfhost.a3': "Tijdens het bouwen extraheert Tesdash de meest verzadigde pixel van het logo van elke app. Je kunt dit overschrijven door een <code>color: '#hexcode'</code>-veld toe te voegen aan een app-vermelding in de configuratie.",
-					'selfhost.q4': 'Wat heb ik nodig om het uit te voeren?',
-					'selfhost.a4': 'Node.js of Bun. Voer <code>bun install</code> uit, dan <code>bun run build</code> om een statische <code>/dist</code>-map te genereren die je overal kunt implementeren (Nginx, Caddy, Netlify, enz.).',
-					'selfhost.q5': 'Kan ik aangepaste categorieën toevoegen?',
-					'selfhost.a5': 'Ja. Voeg in <code>config.yml</code> een nieuw item toe onder <code>categories</code> met een <code>name</code> en een lijst van <code>apps</code>. Het dashboard wordt automatisch opnieuw gebouwd.',
-					'selfhost.q6': 'Is de broncode beschikbaar?',
-					'selfhost.a6': 'Ja, Tesdash is open source. Je kunt het vinden op GitHub en het forken om het helemaal van jou te maken.',
+					'selfhost.desc': 'Tesdash is open source en volledig zelf te hosten. Vind installatie-instructies, configuratieopties en meer op het GitHub-repository.',
 					'footer.madeby': 'Gemaakt met ❤️ door',
 					'footer.from': 'uit',
 					'footer.legal': 'Juridisch',
@@ -875,18 +808,7 @@ const categories = await Promise.all(
 					"faq.q11": "Une app peut-elle s'ouvrir sans plein écran ?",
 					"faq.a11": "Oui. Lors de l'ajout d'une app personnalisée via le bouton +, désactive Plein écran pour l'ouvrir directement dans le navigateur. Les utilisateurs auto-hébergés peuvent aussi définir &lt;code&gt;fullscreen: false&lt;/code&gt; dans &lt;code&gt;config.yml&lt;/code&gt;.",
 					'selfhost.title': 'Auto-hébergement',
-					'selfhost.q1': "Comment fonctionne l'astuce plein écran ?",
-					'selfhost.a1': "Chaque lien d'application est enveloppé d'une URL de redirection YouTube (<code>youtube.com/redirect?q=…</code>). Le navigateur de Tesla lance les liens YouTube en plein écran, ce qui déclenche le mode plein écran pour n'importe quelle destination.",
-					'selfhost.q2': "Comment ajouter ou supprimer des applications ?",
-					'selfhost.a2': "Modifiez <code>src/data/config.yml</code>. Chaque application a besoin d'un <code>name</code>, d'une <code>url</code> et d'un <code>logo</code> (chemin local sous <code>public/logos/</code> ou une URL distante). Aucun changement de code nécessaire — reconstruisez simplement.",
-					'selfhost.q3': "Comment sont déterminées les couleurs d'accent des cartes ?",
-					'selfhost.a3': "Au moment de la construction, Tesdash extrait le pixel le plus saturé du logo de chaque application. Vous pouvez remplacer cela en ajoutant un champ <code>color: '#hexcode'</code> à n'importe quelle entrée d'application dans la configuration.",
-					'selfhost.q4': "De quoi ai-je besoin pour l'exécuter ?",
-					'selfhost.a4': "Node.js ou Bun. Exécutez <code>bun install</code> puis <code>bun run build</code> pour générer un dossier statique <code>/dist</code> que vous pouvez déployer n'importe où (Nginx, Caddy, Netlify, etc.).",
-					'selfhost.q5': "Puis-je ajouter des catégories personnalisées ?",
-					'selfhost.a5': "Oui. Dans <code>config.yml</code>, ajoutez une nouvelle entrée sous <code>categories</code> avec un <code>name</code> et une liste d'<code>apps</code>. Le tableau de bord se reconstruit automatiquement.",
-					'selfhost.q6': "Le code source est-il disponible ?",
-					'selfhost.a6': "Oui, Tesdash est open source. Vous pouvez le trouver sur GitHub et le forker pour en faire entièrement le vôtre.",
+					'selfhost.desc': "Tesdash est open source et entièrement auto-hébergeable. Retrouvez les instructions d'installation, les options de configuration et plus encore sur le dépôt GitHub.",
 					'footer.madeby': 'Fait avec ❤️ par',
 					'footer.from': 'de',
 					'footer.legal': 'Mentions légales',
@@ -938,18 +860,7 @@ const categories = await Promise.all(
 					'faq.q11': 'Kan en app åbnes uden fuld skærm?',
 					'faq.a11': 'Ja. Når du tilføjer en brugerdefineret app via +-knappen, slå Fuld skærm fra for at åbne den direkte i browseren. Selvhostende brugere kan også sætte &lt;code&gt;fullscreen: false&lt;/code&gt; på en hvilken som helst app i &lt;code&gt;config.yml&lt;/code&gt;.',
 					'selfhost.title': 'Selvhosting',
-					'selfhost.q1': 'Hvordan virker fuldskærmstrikset?',
-					'selfhost.a1': 'Hvert app-link er pakket ind med en YouTube-omdirigerings-URL (<code>youtube.com/redirect?q=…</code>). Teslas browser starter YouTube-links i fuldskærm, så dette udløser fuldskærmstilstand for enhver destination.',
-					'selfhost.q2': 'Hvordan tilføjer eller fjerner jeg apps?',
-					'selfhost.a2': 'Rediger <code>src/data/config.yml</code>. Hver app har brug for et <code>name</code>, <code>url</code> og <code>logo</code> (lokal sti under <code>public/logos/</code> eller en ekstern URL). Ingen kodeændringer nødvendige — byg blot om.',
-					'selfhost.q3': 'Hvordan bestemmes kortets akcentfarver?',
-					'selfhost.a3': "Ved byggetid udtrækker Tesdash den mest mættede pixel fra hvert apps logo. Du kan tilsidesætte dette ved at tilføje et <code>color: '#hexcode'</code>-felt til en app-post i konfigurationen.",
-					'selfhost.q4': 'Hvad har jeg brug for at køre det?',
-					'selfhost.a4': 'Node.js eller Bun. Kør <code>bun install</code> derefter <code>bun run build</code> for at generere en statisk <code>/dist</code>-mappe, som du kan implementere overalt (Nginx, Caddy, Netlify, osv.).',
-					'selfhost.q5': 'Kan jeg tilføje brugerdefinerede kategorier?',
-					'selfhost.a5': 'Ja. I <code>config.yml</code> tilføj en ny post under <code>categories</code> med et <code>name</code> og en liste over <code>apps</code>. Dashboardet genopbygges automatisk.',
-					'selfhost.q6': 'Er kildekoden tilgængelig?',
-					'selfhost.a6': 'Ja, Tesdash er open source. Du kan finde det på GitHub og forke det for at gøre det helt til dit eget.',
+					'selfhost.desc': 'Tesdash er open source og kan hostes selv. Find opsætningsinstruktioner, konfigurationsmuligheder og mere på GitHub-repositoriet.',
 					'footer.madeby': 'Lavet med ❤️ af',
 					'footer.from': 'fra',
 					'footer.legal': 'Juridisk',
@@ -1001,18 +912,7 @@ const categories = await Promise.all(
 					'faq.q11': 'Voiko sovellus avautua ilman koko näyttöä?',
 					'faq.a11': 'Kyllä. Kun lisäät mukautetun sovelluksen +-painikkeen kautta, poista Koko näyttö käytöstä avataksesi sen suoraan selaimessa. Itse isännöivät käyttäjät voivat myös asettaa &lt;code&gt;fullscreen: false&lt;/code&gt; mihin tahansa sovellukseen &lt;code&gt;config.yml&lt;/code&gt;-tiedostossa.',
 					'selfhost.title': 'Oma isännointi',
-					'selfhost.q1': 'Miten koko näytön temppu toimii?',
-					'selfhost.a1': 'Jokainen sovelluslinkki on kääritty YouTube-uudelleenohjaus-URL:lla (<code>youtube.com/redirect?q=…</code>). Teslan selain käynnistää YouTube-linkit koko näytölle, joten tämä käynnistää koko näytön tilan mihin tahansa kohteeseen.',
-					'selfhost.q2': 'Miten lisään tai poistan sovelluksia?',
-					'selfhost.a2': 'Muokkaa <code>src/data/config.yml</code>. Jokainen sovellus tarvitsee <code>name</code>-, <code>url</code>- ja <code>logo</code>-kentät (paikallinen polku <code>public/logos/</code>-hakemistossa tai etä-URL). Ei koodimuutoksia tarvita — rakenna vain uudelleen.',
-					'selfhost.q3': 'Miten korttien korostusvärit määritetään?',
-					'selfhost.a3': "Rakennusaikana Tesdash poimii kyllästyneimmän pikselin jokaisen sovelluksen logosta. Voit ohittaa tämän lisäämällä <code>color: '#hexcode'</code>-kentän mihin tahansa sovellustietueeseen konfiguraatiossa.",
-					'selfhost.q4': 'Mitä tarvitsen sen ajamiseen?',
-					'selfhost.a4': 'Node.js tai Bun. Suorita <code>bun install</code> sitten <code>bun run build</code> luodaksesi staattisen <code>/dist</code>-kansion, jonka voit ottaa käyttöön missä tahansa (Nginx, Caddy, Netlify, jne.).',
-					'selfhost.q5': 'Voinko lisätä mukautettuja kategorioita?',
-					'selfhost.a5': 'Kyllä. <code>config.yml</code>-tiedostossa lisää uusi merkintä <code>categories</code>-kohtaan <code>name</code>:lla ja <code>apps</code>-listalla. Kojelauta rakentuu automaattisesti uudelleen.',
-					'selfhost.q6': 'Onko lähdekoodi saatavilla?',
-					'selfhost.a6': 'Kyllä, Tesdash on avoimen lähdekoodin projekti. Löydät sen GitHubista ja voit haarauttaa sen tehdäksesi siitä täysin omasi.',
+					'selfhost.desc': 'Tesdash on avoimen lähdekoodin projekti, jota voi isännöidä itse. Löydä asennusohjeet, konfigurointivaihtoehdot ja paljon muuta GitHub-repositoriosta.',
 					'footer.madeby': 'Tehty ❤️ rakkaudella',
 					'footer.from': 'maasta',
 					'footer.legal': 'Oikeudellinen',
@@ -1064,18 +964,7 @@ const categories = await Promise.all(
 					"faq.q11": "Un'app può aprirsi senza schermo intero?",
 					"faq.a11": "Sì. Quando aggiungi un'app personalizzata tramite il pulsante +, disattiva Schermo intero per aprirla direttamente nel browser. Gli utenti self-hosted possono anche impostare &lt;code&gt;fullscreen: false&lt;/code&gt; su qualsiasi app in &lt;code&gt;config.yml&lt;/code&gt;.",
 					'selfhost.title': 'Self-Hosting',
-					'selfhost.q1': 'Come funziona il trucco dello schermo intero?',
-					'selfhost.a1': "Ogni link app è avvolto con un URL di reindirizzamento YouTube (<code>youtube.com/redirect?q=…</code>). Il browser di Tesla avvia i link YouTube a schermo intero, quindi questo attiva la modalità a schermo intero per qualsiasi destinazione.",
-					'selfhost.q2': 'Come aggiungo o rimuovo app?',
-					'selfhost.a2': 'Modifica <code>src/data/config.yml</code>. Ogni app ha bisogno di un <code>name</code>, <code>url</code> e <code>logo</code> (percorso locale sotto <code>public/logos/</code> o un URL remoto). Nessuna modifica al codice necessaria — basta ricostruire.',
-					'selfhost.q3': "Come vengono determinate i colori d'accento delle schede?",
-					'selfhost.a3': "Al momento della build, Tesdash estrae il pixel più saturo dal logo di ogni app. Puoi sovrascrivere questo aggiungendo un campo <code>color: '#hexcode'</code> a qualsiasi voce app nella configurazione.",
-					'selfhost.q4': 'Di cosa ho bisogno per eseguirlo?',
-					'selfhost.a4': 'Node.js o Bun. Esegui <code>bun install</code> poi <code>bun run build</code> per generare una cartella statica <code>/dist</code> che puoi distribuire ovunque (Nginx, Caddy, Netlify, ecc.).',
-					'selfhost.q5': 'Posso aggiungere categorie personalizzate?',
-					'selfhost.a5': 'Sì. In <code>config.yml</code> aggiungi una nuova voce sotto <code>categories</code> con un <code>name</code> e un elenco di <code>apps</code>. La dashboard si ricostruisce automaticamente.',
-					'selfhost.q6': 'Il codice sorgente è disponibile?',
-					'selfhost.a6': 'Sì, Tesdash è open source. Puoi trovarlo su GitHub e forkarlo per renderlo completamente tuo.',
+					'selfhost.desc': 'Tesdash è open source e completamente auto-ospitabile. Trova istruzioni di configurazione, opzioni di personalizzazione e altro ancora nel repository GitHub.',
 					'footer.madeby': 'Fatto con ❤️ da',
 					'footer.from': 'dalla',
 					'footer.legal': 'Note legali',
@@ -1127,18 +1016,7 @@ const categories = await Promise.all(
 					'faq.q11': '¿Puede una app abrirse sin pantalla completa?',
 					'faq.a11': 'Sí. Al añadir una app personalizada mediante el botón +, desactiva Pantalla completa para abrirla directamente en el navegador. Los usuarios con autoalojamiento también pueden establecer &lt;code&gt;fullscreen: false&lt;/code&gt; en cualquier app en &lt;code&gt;config.yml&lt;/code&gt;.',
 					'selfhost.title': 'Auto-alojamiento',
-					'selfhost.q1': '¿Cómo funciona el truco de pantalla completa?',
-					'selfhost.a1': "Cada enlace de app está envuelto con una URL de redirección de YouTube (<code>youtube.com/redirect?q=…</code>). El navegador de Tesla lanza los enlaces de YouTube en pantalla completa, por lo que esto activa el modo de pantalla completa para cualquier destino.",
-					'selfhost.q2': '¿Cómo añado o elimino apps?',
-					'selfhost.a2': 'Edita <code>src/data/config.yml</code>. Cada app necesita un <code>name</code>, <code>url</code> y <code>logo</code> (ruta local bajo <code>public/logos/</code> o una URL remota). No se necesitan cambios de código — solo reconstruye.',
-					'selfhost.q3': '¿Cómo se determinan los colores de acento de las tarjetas?',
-					'selfhost.a3': "En el momento de la compilación, Tesdash extrae el píxel más saturado del logo de cada app. Puedes anular esto añadiendo un campo <code>color: '#hexcode'</code> a cualquier entrada de app en la configuración.",
-					'selfhost.q4': '¿Qué necesito para ejecutarlo?',
-					'selfhost.a4': 'Node.js o Bun. Ejecuta <code>bun install</code> luego <code>bun run build</code> para generar una carpeta estática <code>/dist</code> que puedes desplegar en cualquier lugar (Nginx, Caddy, Netlify, etc.).',
-					'selfhost.q5': '¿Puedo añadir categorías personalizadas?',
-					'selfhost.a5': 'Sí. En <code>config.yml</code> añade una nueva entrada bajo <code>categories</code> con un <code>name</code> y una lista de <code>apps</code>. El panel de control se reconstruye automáticamente.',
-					'selfhost.q6': '¿Está disponible el código fuente?',
-					'selfhost.a6': 'Sí, Tesdash es de código abierto. Puedes encontrarlo en GitHub y bifurcarlo para hacerlo completamente tuyo.',
+					'selfhost.desc': 'Tesdash es de código abierto y completamente auto-hospedable. Encuentra instrucciones de configuración, opciones de personalización y más en el repositorio de GitHub.',
 					'footer.madeby': 'Hecho con ❤️ por',
 					'footer.from': 'de',
 					'footer.legal': 'Legal',
@@ -1190,18 +1068,7 @@ const categories = await Promise.all(
 					'faq.q11': 'Uma app pode abrir sem ecrã inteiro?',
 					'faq.a11': 'Sim. Ao adicionar uma app personalizada através do botão +, desativa Ecrã inteiro para a abrir diretamente no navegador. Utilizadores auto-hospedados também podem definir &lt;code&gt;fullscreen: false&lt;/code&gt; em qualquer app no &lt;code&gt;config.yml&lt;/code&gt;.',
 					'selfhost.title': 'Auto-hospedagem',
-					'selfhost.q1': 'Como funciona o truque da tela cheia?',
-					'selfhost.a1': "Cada link de app é envolvido com uma URL de redirecionamento do YouTube (<code>youtube.com/redirect?q=…</code>). O navegador do Tesla lança links do YouTube em tela cheia, então isso aciona o modo de tela cheia para qualquer destino.",
-					'selfhost.q2': 'Como adiciono ou removo apps?',
-					'selfhost.a2': 'Edite <code>src/data/config.yml</code>. Cada app precisa de um <code>name</code>, <code>url</code> e <code>logo</code> (caminho local em <code>public/logos/</code> ou uma URL remota). Nenhuma alteração de código necessária — apenas reconstrua.',
-					'selfhost.q3': 'Como são determinadas as cores de destaque dos cartões?',
-					'selfhost.a3': "No momento da compilação, o Tesdash extrai o pixel mais saturado do logo de cada app. Você pode substituir isso adicionando um campo <code>color: '#hexcode'</code> a qualquer entrada de app na configuração.",
-					'selfhost.q4': 'O que preciso para executá-lo?',
-					'selfhost.a4': 'Node.js ou Bun. Execute <code>bun install</code> depois <code>bun run build</code> para gerar uma pasta estática <code>/dist</code> que você pode implantar em qualquer lugar (Nginx, Caddy, Netlify, etc.).',
-					'selfhost.q5': 'Posso adicionar categorias personalizadas?',
-					'selfhost.a5': 'Sim. Em <code>config.yml</code> adicione uma nova entrada em <code>categories</code> com um <code>name</code> e uma lista de <code>apps</code>. O painel é reconstruído automaticamente.',
-					'selfhost.q6': 'O código-fonte está disponível?',
-					'selfhost.a6': 'Sim, o Tesdash é de código aberto. Você pode encontrá-lo no GitHub e bifurcá-lo para torná-lo completamente seu.',
+					'selfhost.desc': 'Tesdash é de código aberto e totalmente auto-hospedável. Encontre instruções de configuração, opções de personalização e mais no repositório GitHub.',
 					'footer.madeby': 'Feito com ❤️ por',
 					'footer.from': 'de',
 					'footer.legal': 'Legal',
@@ -1253,18 +1120,7 @@ const categories = await Promise.all(
 					'faq.q11': 'Czy aplikacja może otwierać się bez pełnego ekranu?',
 					'faq.a11': 'Tak. Podczas dodawania własnej aplikacji przez przycisk +, wyłącz Pełny ekran, aby otworzyć ją bezpośrednio w przeglądarce. Samodzielnie hostujący użytkownicy mogą też ustawić &lt;code&gt;fullscreen: false&lt;/code&gt; dla dowolnej aplikacji w &lt;code&gt;config.yml&lt;/code&gt;.',
 					'selfhost.title': 'Własny hosting',
-					'selfhost.q1': 'Jak działa sztuczka pełnoekranowa?',
-					'selfhost.a1': 'Każdy link aplikacji jest opakowany URL przekierowania YouTube (<code>youtube.com/redirect?q=…</code>). Przeglądarka Tesli uruchamia linki YouTube w trybie pełnoekranowym, więc powoduje to tryb pełnoekranowy dla dowolnego celu.',
-					'selfhost.q2': 'Jak dodaję lub usuwam aplikacje?',
-					'selfhost.a2': 'Edytuj <code>src/data/config.yml</code>. Każda aplikacja potrzebuje <code>name</code>, <code>url</code> i <code>logo</code> (lokalnej ścieżki pod <code>public/logos/</code> lub zdalnego URL). Bez zmian w kodzie — wystarczy przebudować.',
-					'selfhost.q3': 'Jak są określane kolory akcentów kart?',
-					'selfhost.a3': "W czasie budowania Tesdash wyodrębnia najbardziej nasycony piksel z logo każdej aplikacji. Możesz to nadpisać, dodając pole <code>color: '#hexcode'</code> do dowolnego wpisu aplikacji w konfiguracji.",
-					'selfhost.q4': 'Czego potrzebuję, aby to uruchomić?',
-					'selfhost.a4': 'Node.js lub Bun. Uruchom <code>bun install</code> a następnie <code>bun run build</code>, aby wygenerować statyczny folder <code>/dist</code>, który możesz wdrożyć gdziekolwiek (Nginx, Caddy, Netlify, itp.).',
-					'selfhost.q5': 'Czy mogę dodać niestandardowe kategorie?',
-					'selfhost.a5': 'Tak. W <code>config.yml</code> dodaj nowy wpis pod <code>categories</code> z <code>name</code> i listą <code>apps</code>. Pulpit nawigacyjny przebudowuje się automatycznie.',
-					'selfhost.q6': 'Czy kod źródłowy jest dostępny?',
-					'selfhost.a6': 'Tak, Tesdash jest open source. Możesz go znaleźć na GitHubie i forkować, aby uczynić go całkowicie swoim.',
+					'selfhost.desc': 'Tesdash jest open source i w pełni możliwy do samodzielnego hostowania. Znajdź instrukcje konfiguracji, opcje personalizacji i więcej w repozytorium GitHub.',
 					'footer.madeby': 'Stworzone z ❤️ przez',
 					'footer.from': 'z',
 					'footer.legal': 'Prawne',
@@ -1316,18 +1172,7 @@ const categories = await Promise.all(
 					'faq.q11': '应用可以不全屏打开吗？',
 					'faq.a11': '可以。通过+按钮添加自定义应用时，关闭全屏选项即可直接在浏览器中打开。自托管用户也可以在&lt;code&gt;config.yml&lt;/code&gt;中为任何应用设置&lt;code&gt;fullscreen: false&lt;/code&gt;。',
 					'selfhost.title': '自托管',
-					'selfhost.q1': '全屏技巧是如何工作的？',
-					'selfhost.a1': '每个应用链接都用 YouTube 重定向 URL（<code>youtube.com/redirect?q=…</code>）包装。特斯拉的浏览器以全屏模式启动 YouTube 链接，因此这会为任何目的地触发全屏模式。',
-					'selfhost.q2': '如何添加或删除应用程序？',
-					'selfhost.a2': '编辑 <code>src/data/config.yml</code>。每个应用需要 <code>name</code>、<code>url</code> 和 <code>logo</code>（<code>public/logos/</code> 下的本地路径或远程 URL）。无需更改代码 — 只需重新构建。',
-					'selfhost.q3': '卡片强调色是如何确定的？',
-					'selfhost.a3': "在构建时，Tesdash 从每个应用的徽标中提取最饱和的像素。您可以通过在配置的任何应用条目中添加 <code>color: '#hexcode'</code> 字段来覆盖此设置。",
-					'selfhost.q4': '我需要什么才能运行它？',
-					'selfhost.a4': 'Node.js 或 Bun。运行 <code>bun install</code> 然后 <code>bun run build</code> 生成静态 <code>/dist</code> 文件夹，您可以在任何地方部署（Nginx、Caddy、Netlify 等）。',
-					'selfhost.q5': '我可以添加自定义类别吗？',
-					'selfhost.a5': '可以。在 <code>config.yml</code> 中，在 <code>categories</code> 下添加带有 <code>name</code> 和 <code>apps</code> 列表的新条目。仪表板会自动重建。',
-					'selfhost.q6': '源代码是否可用？',
-					'selfhost.a6': '是的，Tesdash 是开源的。您可以在 GitHub 上找到它并 fork 它，使其完全属于您自己。',
+					'selfhost.desc': 'Tesdash 是开源的，完全可以自托管。在 GitHub 仓库中找到设置说明、配置选项等内容。',
 					'footer.madeby': '用 ❤️ 制作，作者',
 					'footer.from': '来自',
 					'footer.legal': '法律',
@@ -3269,6 +3114,45 @@ const categories = await Promise.all(
 		padding: 0.1em 0.4em;
 		font-family: ui-monospace, monospace;
 		color: #e2e8f0;
+	}
+
+	.selfhost-content {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		align-items: flex-start;
+	}
+
+	.selfhost-desc {
+		font-size: 0.875rem;
+		line-height: 1.75;
+		color: rgba(248, 250, 252, 0.7);
+	}
+
+	.selfhost-github-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		background: rgba(255, 255, 255, 0.08);
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		color: var(--text);
+		text-decoration: none;
+		font-size: 0.875rem;
+		font-weight: 600;
+		padding: 0.65rem 1.25rem;
+		border-radius: 10px;
+		transition: background 150ms ease, border-color 150ms ease;
+	}
+
+	.selfhost-github-btn:hover {
+		background: rgba(255, 255, 255, 0.13);
+		border-color: rgba(255, 255, 255, 0.25);
+	}
+
+	.selfhost-github-btn svg {
+		width: 18px;
+		height: 18px;
+		flex-shrink: 0;
 	}
 
 	@media (max-width: 480px) {
