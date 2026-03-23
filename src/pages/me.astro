@@ -85,7 +85,7 @@ async function extractColor(logo: string, fallback = '#ffffff'): Promise<string>
 
 const YOUTUBE_REDIRECT = 'https://www.youtube.com/redirect?q=';
 
-const configPath = join(process.cwd(), 'src/data/config.yml');
+const configPath = join(process.cwd(), 'src/data/config.me.yml');
 const raw = readFileSync(configPath, 'utf-8');
 const config = yaml.load(raw) as Config;
 
@@ -108,7 +108,8 @@ const categories = await Promise.all(
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Tesdash</title>
+		<title>My Tesdash</title>
+		<meta name="robots" content="noindex, nofollow" />
 		<meta name="description" content="Tesdash — a community-made dashboard for Tesla's in-car browser. Stream music, videos, and more directly from your Tesla." />
 		<link rel="icon" href="/favicon.ico" sizes="any" />
 		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -164,6 +165,9 @@ const categories = await Promise.all(
 						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 					</button>
 					<Clock client:load />
+					<a href="/me" class="owner-btn" aria-label="My dashboard" tabindex="-1">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="14" height="14"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+					</a>
 				</div>
 			</header>
 
@@ -636,20 +640,6 @@ const categories = await Promise.all(
 			</div>
 		</div>
 
-		<!-- Owner Modal -->
-		<div class="modal-overlay" id="modal-owner" aria-hidden="true" inert>
-			<canvas id="owner-canvas" aria-hidden="true"></canvas>
-			<div class="modal-box owner-modal-box" role="dialog" aria-modal="true">
-				<div class="owner-modal-icon" aria-hidden="true">👋</div>
-				<h2 class="owner-modal-title" data-i18n="owner.title">¿Eres Cristian?</h2>
-				<p class="owner-modal-sub" data-i18n="owner.sub">Esta zona es privada.</p>
-				<div class="owner-modal-actions">
-					<button class="owner-btn-yes" id="owner-yes" data-i18n="owner.yes">Sí, soy yo</button>
-					<button class="owner-btn-no" id="owner-no" data-i18n="owner.no">No</button>
-				</div>
-			</div>
-		</div>
-
 		<!-- FAB -->
 		<div class="fab-wrap">
 			<div class="fab-tooltip" id="fab-tooltip">
@@ -718,10 +708,6 @@ const categories = await Promise.all(
 					'locale.all': 'All',
 					'locale.lang-desc': 'Changes the interface language across the whole dashboard.',
 					'locale.country-desc': "Filters apps to show only those available in your country. Detected automatically from your car's location.",
-				'owner.title': 'Are you Cristian?',
-				'owner.sub': 'This area is private.',
-				'owner.yes': 'Yes, that\'s me',
-				'owner.no': 'No',
 				},
 				no: {
 					'btn.about': 'Om',
@@ -775,10 +761,6 @@ const categories = await Promise.all(
 				'locale.all': 'Alle',
 				'locale.lang-desc': 'Endrer grensesnittspråket på hele dashbordet.',
 				'locale.country-desc': 'Filtrerer apper for å vise bare de som er tilgjengelige i ditt land. Oppdages automatisk fra bilens posisjon.',
-				'owner.title': 'Er du Cristian?',
-				'owner.sub': 'Dette området er privat.',
-				'owner.yes': 'Ja, det er meg',
-				'owner.no': 'Nei',
 				},
 				de: {
 					'btn.about': 'Über',
@@ -832,10 +814,6 @@ const categories = await Promise.all(
 				'locale.all': 'Alle',
 				'locale.lang-desc': 'Ändert die Sprache der gesamten Oberfläche.',
 				'locale.country-desc': 'Filtert Apps, um nur die in deinem Land verfügbaren anzuzeigen. Wird automatisch über den Standort deines Autos erkannt.',
-				'owner.title': 'Bist du Cristian?',
-				'owner.sub': 'Dieser Bereich ist privat.',
-				'owner.yes': 'Ja, ich bin\'s',
-				'owner.no': 'Nein',
 				},
 				sv: {
 					'btn.about': 'Om',
@@ -889,10 +867,6 @@ const categories = await Promise.all(
 				'locale.all': 'Alla',
 				'locale.lang-desc': 'Ändrar gränssnittsspråket för hela dashbordet.',
 				'locale.country-desc': 'Filtrerar appar för att visa enbart de tillgängliga i ditt land. Identifieras automatiskt från bilens plats.',
-				'owner.title': 'Är du Cristian?',
-				'owner.sub': 'Det här området är privat.',
-				'owner.yes': 'Ja, det är jag',
-				'owner.no': 'Nej',
 				},
 				nl: {
 					'btn.about': 'Over',
@@ -946,10 +920,6 @@ const categories = await Promise.all(
 				'locale.all': 'Alle',
 				'locale.lang-desc': 'Wijzigt de interfacetaal van het hele dashboard.',
 				'locale.country-desc': 'Filtert apps om alleen die beschikbaar in jouw land te tonen. Automatisch gedetecteerd op basis van de locatie van je auto.',
-				'owner.title': 'Ben jij Cristian?',
-				'owner.sub': 'Dit gebied is privé.',
-				'owner.yes': 'Ja, dat ben ik',
-				'owner.no': 'Nee',
 				},
 				fr: {
 					'btn.about': 'À propos',
@@ -1003,10 +973,6 @@ const categories = await Promise.all(
 				'locale.all': 'Tous',
 				'locale.lang-desc': "Change la langue de l'interface sur tout le tableau de bord.",
 				'locale.country-desc': "Filtre les apps pour n'afficher que celles disponibles dans ton pays. Détecté automatiquement depuis la position de ta voiture.",
-				'owner.title': 'Es-tu Cristian ?',
-				'owner.sub': 'Cette zone est privée.',
-				'owner.yes': 'Oui, c\'est moi',
-				'owner.no': 'Non',
 				},
 				da: {
 					'btn.about': 'Om',
@@ -1060,10 +1026,6 @@ const categories = await Promise.all(
 				'locale.all': 'Alle',
 				'locale.lang-desc': 'Ændrer grænsefladsproget på hele dashboardet.',
 				'locale.country-desc': 'Filtrerer apps for kun at vise dem, der er tilgængelige i dit land. Registreres automatisk fra bilens placering.',
-				'owner.title': 'Er du Cristian?',
-				'owner.sub': 'Dette område er privat.',
-				'owner.yes': 'Ja, det er mig',
-				'owner.no': 'Nej',
 				},
 				fi: {
 					'btn.about': 'Tietoja',
@@ -1117,10 +1079,6 @@ const categories = await Promise.all(
 				'locale.all': 'Kaikki',
 				'locale.lang-desc': 'Muuttaa koko käyttöliittymän kielen.',
 				'locale.country-desc': 'Suodattaa sovellukset näyttämään vain maassasi saatavilla olevat. Havaitaan automaattisesti autosi sijainnista.',
-				'owner.title': 'Oletko Cristian?',
-				'owner.sub': 'Tämä alue on yksityinen.',
-				'owner.yes': 'Kyllä, olen minä',
-				'owner.no': 'Ei',
 				},
 				it: {
 					'btn.about': 'Info',
@@ -1174,10 +1132,6 @@ const categories = await Promise.all(
 				'locale.all': 'Tutti',
 				'locale.lang-desc': "Cambia la lingua dell'interfaccia su tutto il dashboard.",
 				'locale.country-desc': 'Filtra le app per mostrare solo quelle disponibili nel tuo paese. Rilevato automaticamente dalla posizione della tua auto.',
-				'owner.title': 'Sei Cristian?',
-				'owner.sub': "Quest'area è privata.",
-				'owner.yes': 'Sì, sono io',
-				'owner.no': 'No',
 				},
 				es: {
 					'btn.about': 'Acerca de',
@@ -1231,10 +1185,6 @@ const categories = await Promise.all(
 				'locale.all': 'Todos',
 				'locale.lang-desc': 'Cambia el idioma de la interfaz en todo el panel.',
 				'locale.country-desc': 'Filtra las apps para mostrar solo las disponibles en tu país. Se detecta automáticamente desde la ubicación de tu coche.',
-				'owner.title': '¿Eres Cristian?',
-				'owner.sub': 'Esta zona es privada.',
-				'owner.yes': 'Sí, soy yo',
-				'owner.no': 'No',
 				},
 				pt: {
 					'btn.about': 'Sobre',
@@ -1288,10 +1238,6 @@ const categories = await Promise.all(
 				'locale.all': 'Todos',
 				'locale.lang-desc': 'Muda o idioma da interface em todo o painel.',
 				'locale.country-desc': 'Filtra apps para mostrar apenas as disponíveis no teu país. Detetado automaticamente pela localização do teu carro.',
-				'owner.title': 'És o Cristian?',
-				'owner.sub': 'Esta área é privada.',
-				'owner.yes': 'Sim, sou eu',
-				'owner.no': 'Não',
 				},
 				pl: {
 					'btn.about': 'O nas',
@@ -1345,10 +1291,6 @@ const categories = await Promise.all(
 				'locale.all': 'Wszystkie',
 				'locale.lang-desc': 'Zmienia język interfejsu całego dashboardu.',
 				'locale.country-desc': 'Filtruje aplikacje, aby pokazać tylko te dostępne w twoim kraju. Wykrywane automatycznie na podstawie lokalizacji twojego samochodu.',
-				'owner.title': 'Jesteś Cristian?',
-				'owner.sub': 'Ten obszar jest prywatny.',
-				'owner.yes': 'Tak, to ja',
-				'owner.no': 'Nie',
 				},
 				zh: {
 					'btn.about': '关于',
@@ -1402,10 +1344,6 @@ const categories = await Promise.all(
 				'locale.all': '全部',
 				'locale.lang-desc': '更改整个仪表板的界面语言。',
 				'locale.country-desc': '过滤应用，仅显示您所在国家/地区可用的应用。根据您车辆的位置自动检测。',
-				'owner.title': '你是 Cristian 吗？',
-				'owner.sub': '此区域是私密的。',
-				'owner.yes': '是的，是我',
-				'owner.no': '不是',
 				},
 			};
 
@@ -1672,237 +1610,7 @@ const categories = await Promise.all(
 
 			document.querySelectorAll<HTMLElement>('.card').forEach(attachSpotlight);
 
-			// ── Triple tap on logo → owner modal + Digital Rain (red) ──
-			(function() {
-				const logo = document.querySelector<HTMLElement>('.logo');
-				if (!logo) return;
-
-				const canvas = document.getElementById('owner-canvas') as HTMLCanvasElement;
-				const overlay = document.getElementById('modal-owner') as HTMLElement;
-				const ctx = canvas.getContext('2d')!;
-
-				let width = 0, height = 0, rafId = 0;
-				const FONT_SIZE = 15;
-				const FALL_SPEED = 1.0;
-				let COLUMN_DENSITY = 0.7;
-				let waterSurface = 0;
-				let columns: any[] = [];
-				let ripples: any[] = [];
-				let wavePoints: any[] = [];
-				let waveCount = 0;
-				const MAX_RIPPLES = 40;
-				const WAVE_RESOLUTION = 4;
-
-				const allChars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789×÷∆ΣΠ√∞≈≠≤≥∫∂αβγθφψω';
-				function randomChar() { return allChars[Math.floor(Math.random() * allChars.length)]; }
-
-				function resize() {
-					const dpr = Math.min(devicePixelRatio || 1, 2);
-					width = overlay.clientWidth; height = overlay.clientHeight;
-					canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
-					canvas.style.width = width + 'px'; canvas.style.height = height + 'px';
-					ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-					initColumns();
-				}
-
-				function createColumn(index: number, scatter: boolean) {
-					const trailLen = 12 + Math.floor(Math.random() * 20);
-					const maxChars = trailLen + 5;
-					const chars = Array.from({ length: maxChars }, () => ({ char: randomChar(), cycleTimer: Math.random() * 3, cycleRate: 0.5 + Math.random() * 2 }));
-					let startY = scatter
-						? (Math.random() < COLUMN_DENSITY ? Math.random() * (waterSurface + trailLen * FONT_SIZE) - trailLen * FONT_SIZE * 0.3 : -trailLen * FONT_SIZE - Math.random() * height * 0.5)
-						: -trailLen * FONT_SIZE * Math.random() * 0.3;
-					return { x: index * FONT_SIZE, y: startY, speed: 1.2 + Math.random() * 2.5, length: trailLen, chars, active: scatter ? Math.random() < (COLUMN_DENSITY + 0.2) : Math.random() < COLUMN_DENSITY, restartDelay: 0, opacity: 0.6 + Math.random() * 0.4, hitWater: false };
-				}
-
-				function initColumns() {
-					waterSurface = height * 0.78;
-					const colCount = Math.floor(width / FONT_SIZE);
-					const newCols: any[] = [];
-					for (let i = 0; i < colCount; i++) { const ex = columns[i]; if (ex) { ex.x = i * FONT_SIZE; newCols.push(ex); } else { newCols.push(createColumn(i, true)); } }
-					columns = newCols;
-					waveCount = Math.ceil(width / WAVE_RESOLUTION) + 1;
-					wavePoints = Array.from({ length: waveCount }, () => ({ y: 0, vy: 0 }));
-				}
-
-				function updateColumns(dt: number) {
-					for (let i = 0; i < columns.length; i++) {
-						const col = columns[i];
-						if (!col.active) { col.restartDelay -= dt; if (col.restartDelay <= 0) { if (Math.random() < COLUMN_DENSITY) { col.active = true; col.y = -col.length * FONT_SIZE * Math.random() * 0.3; col.speed = 1.2 + Math.random() * 2.5; col.length = 12 + Math.floor(Math.random() * 20); col.opacity = 0.6 + Math.random() * 0.4; col.hitWater = false; col.chars.forEach((c: any) => c.char = randomChar()); } else { col.restartDelay = 0.3 + Math.random() * 1.5; } } continue; }
-						const prevY = col.y;
-						col.y += col.speed * FALL_SPEED * dt * 60;
-						col.chars.forEach((c: any) => { c.cycleTimer -= dt; if (c.cycleTimer <= 0) { c.char = randomChar(); c.cycleTimer = c.cycleRate; } });
-						if (!col.hitWater && col.y >= waterSurface && prevY < waterSurface) { col.hitWater = true; spawnRipple(col.x + FONT_SIZE * 0.5, waterSurface); disturbWave(col.x + FONT_SIZE * 0.5, -2 - Math.random() * 3); }
-						if (col.y - col.length * FONT_SIZE > waterSurface + 30) { col.active = false; col.restartDelay = 0.2 + Math.random() * 2; }
-					}
-				}
-
-				function drawColumns() {
-					ctx.font = FONT_SIZE + 'px "SF Mono","Fira Code",monospace';
-					ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-					for (const col of columns) {
-						if (!col.active) continue;
-						for (let j = 0; j < col.length; j++) {
-							const charY = col.y - j * FONT_SIZE;
-							if (charY > waterSurface || charY < -FONT_SIZE) continue;
-							const trailFraction = j / col.length;
-							let brightness = j === 0 ? 1.0 : j === 1 ? 0.9 : j < 4 ? 0.75 - (j - 2) * 0.08 : Math.max(0, 0.6 * (1 - trailFraction));
-							const distToWater = waterSurface - charY;
-							if (distToWater < FONT_SIZE * 3) brightness *= Math.max(0, distToWater / (FONT_SIZE * 3));
-							brightness *= col.opacity;
-							if (brightness < 0.02) continue;
-							// Red palette: lead = bright red-white, mid = Tesla red, trail = deep red
-							let r: number, g: number, b: number;
-							if (j === 0)      { r = 255; g = 160; b = 150; }
-							else if (j < 3)   { r = 229; g = 30;  b = 20;  }
-							else              { r = 160; g = 9;   b = 15;  }
-							ctx.fillStyle = `rgba(${r},${g},${b},${brightness})`;
-							if (j === 0) { ctx.shadowColor = 'rgba(229,9,20,0.8)'; ctx.shadowBlur = 10; }
-							ctx.fillText(col.chars[j % col.chars.length].char, col.x + FONT_SIZE * 0.5, charY);
-							if (j === 0) { ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; }
-						}
-					}
-				}
-
-				function drawReflections() {
-					ctx.save(); ctx.beginPath(); ctx.rect(0, waterSurface, width, height - waterSurface); ctx.clip();
-					ctx.font = FONT_SIZE + 'px "SF Mono","Fira Code",monospace'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-					for (const col of columns) {
-						if (!col.active) continue;
-						for (let j = 0; j < Math.min(col.length, 8); j++) {
-							const charY = col.y - j * FONT_SIZE;
-							if (charY > waterSurface || charY < waterSurface - FONT_SIZE * 8) continue;
-							const reflectY = waterSurface + (waterSurface - charY);
-							const depthBelow = reflectY - waterSurface;
-							const reflectAlpha = Math.max(0, 0.12 * (1 - depthBelow / (height * 0.2)));
-							if (reflectAlpha < 0.01) continue;
-							const waveIdx = Math.floor(col.x / WAVE_RESOLUTION);
-							const waveOffset = waveIdx >= 0 && waveIdx < wavePoints.length ? wavePoints[waveIdx].y * 2 : 0;
-							ctx.fillStyle = `rgba(180,9,20,${reflectAlpha})`;
-							ctx.fillText(col.chars[j % col.chars.length].char, col.x + FONT_SIZE * 0.5 + Math.sin(depthBelow * 0.05) * 3, reflectY + waveOffset);
-						}
-					}
-					ctx.restore();
-				}
-
-				function spawnRipple(x: number, y: number) {
-					if (ripples.length >= MAX_RIPPLES) ripples.shift();
-					ripples.push({ x, y, radius: 0, maxRadius: 30 + Math.random() * 50, speed: 20 + Math.random() * 30, life: 1.0, decay: 0.3 + Math.random() * 0.2 });
-				}
-
-				function updateRipples(dt: number) {
-					let i = ripples.length; while (i--) { const r = ripples[i]; r.radius += r.speed * dt; r.life -= r.decay * dt; if (r.life <= 0 || r.radius > r.maxRadius) ripples.splice(i, 1); }
-				}
-
-				function drawRipples() {
-					for (const r of ripples) {
-						const alpha = r.life * 0.3;
-						for (let ring = 0; ring < 3; ring++) {
-							const rr = r.radius - ring * 8; if (rr <= 0) continue;
-							ctx.beginPath(); ctx.ellipse(r.x, r.y + ring * 2, rr, rr * 0.3, 0, 0, Math.PI * 2);
-							ctx.strokeStyle = `rgba(200,20,20,${alpha * (1 - ring * 0.3)})`; ctx.lineWidth = 1 - ring * 0.2; ctx.stroke();
-						}
-					}
-				}
-
-				function disturbWave(x: number, force: number) {
-					const idx = Math.floor(x / WAVE_RESOLUTION); const spread = 3;
-					for (let i = -spread; i <= spread; i++) { const wi = idx + i; if (wi >= 0 && wi < wavePoints.length) wavePoints[wi].vy += force * (1 - Math.abs(i) / (spread + 1)); }
-				}
-
-				function updateWaves(dt: number) {
-					for (const p of wavePoints) { p.vy += -0.03 * p.y; p.vy *= 0.97; p.y += p.vy; }
-					for (let pass = 0; pass < 3; pass++) for (let i = 0; i < wavePoints.length; i++) { if (i > 0) wavePoints[i].vy += 0.25 * (wavePoints[i-1].y - wavePoints[i].y); if (i < wavePoints.length - 1) wavePoints[i].vy += 0.25 * (wavePoints[i+1].y - wavePoints[i].y); }
-				}
-
-				function drawWaterSurface(time: number) {
-					const wg = ctx.createLinearGradient(0, waterSurface, 0, height);
-					wg.addColorStop(0, 'rgba(15,5,5,0.6)'); wg.addColorStop(0.3, 'rgba(10,3,3,0.85)'); wg.addColorStop(1, 'rgba(5,0,0,0.95)');
-					ctx.fillStyle = wg; ctx.fillRect(0, waterSurface - 2, width, height - waterSurface + 2);
-					ctx.beginPath();
-					for (let x = 0; x <= width; x += WAVE_RESOLUTION) {
-						const idx = Math.floor(x / WAVE_RESOLUTION);
-						const waveY = idx < wavePoints.length ? wavePoints[idx].y : 0;
-						const ambient = Math.sin(x * 0.01 + time * 0.8) * 1.5 + Math.sin(x * 0.023 + time * 0.5) + Math.sin(x * 0.007 + time * 0.3) * 2;
-						x === 0 ? ctx.moveTo(x, waterSurface + waveY + ambient) : ctx.lineTo(x, waterSurface + waveY + ambient);
-					}
-					ctx.strokeStyle = 'rgba(229,9,20,0.3)'; ctx.lineWidth = 1.5; ctx.stroke();
-					// Glow
-					const sg = ctx.createLinearGradient(0, waterSurface - 10, 0, waterSurface + 20);
-					sg.addColorStop(0, 'rgba(229,9,20,0)'); sg.addColorStop(0.4, 'rgba(229,9,20,0.08)'); sg.addColorStop(1, 'rgba(229,9,20,0)');
-					ctx.fillStyle = sg; ctx.fillRect(0, waterSurface - 10, width, 30);
-					// Zen ripples
-					const zenPts = [{ x: width*0.3, y: waterSurface+(height-waterSurface)*0.4 }, { x: width*0.7, y: waterSurface+(height-waterSurface)*0.5 }, { x: width*0.5, y: waterSurface+(height-waterSurface)*0.7 }];
-					for (let z = 0; z < zenPts.length; z++) {
-						const zp = zenPts[z];
-						for (let ring = 0; ring < 4; ring++) { const phase = time * 0.4 + ring * 1.5 + z * 2; const radius = 20 + (phase % 6) * 15; const alpha = 0.06 * Math.max(0, 1 - (phase % 6) / 6); if (alpha < 0.005) continue; ctx.beginPath(); ctx.ellipse(zp.x, zp.y, radius, radius * 0.3, 0, 0, Math.PI * 2); ctx.strokeStyle = `rgba(200,20,20,${alpha})`; ctx.lineWidth = 0.8; ctx.stroke(); }
-					}
-				}
-
-				function drawVignette() {
-					const cx = width/2, cy = height/2, md = Math.max(width, height);
-					const vg = ctx.createRadialGradient(cx, cy, md*0.25, cx, cy, md*0.8);
-					vg.addColorStop(0, 'rgba(5,0,0,0)'); vg.addColorStop(1, 'rgba(5,0,0,0.5)');
-					ctx.fillStyle = vg; ctx.fillRect(0, 0, width, height);
-				}
-
-				let lastTime = 0;
-				function render(timestamp: number) {
-					if (!lastTime) lastTime = timestamp;
-					const dt = Math.min((timestamp - lastTime) / 1000, 0.05);
-					lastTime = timestamp;
-					const time = timestamp / 1000;
-					ctx.clearRect(0, 0, width, height);
-					ctx.fillStyle = '#050000'; ctx.fillRect(0, 0, width, height);
-					updateColumns(dt); updateRipples(dt); updateWaves(dt);
-					drawColumns(); drawWaterSurface(time); drawReflections(); drawRipples(); drawVignette();
-					rafId = requestAnimationFrame(render);
-				}
-
-				function openModal() {
-					overlay.removeAttribute('inert');
-					overlay.setAttribute('aria-hidden', 'false');
-					overlay.classList.add('is-opening');
-					resize(); lastTime = 0; cancelAnimationFrame(rafId); rafId = requestAnimationFrame(render);
-					// Double rAF: let browser paint opacity:0 first, then trigger transition to 1
-					requestAnimationFrame(() => requestAnimationFrame(() => {
-						overlay.classList.add('is-open');
-						setTimeout(() => overlay.classList.remove('is-opening'), 700);
-					}));
-				}
-
-				function closeModal() {
-					overlay.classList.add('is-closing');
-					overlay.classList.remove('is-open');
-					setTimeout(() => {
-						overlay.setAttribute('inert', '');
-						overlay.setAttribute('aria-hidden', 'true');
-						overlay.classList.remove('is-closing');
-						cancelAnimationFrame(rafId); rafId = 0;
-					}, 700);
-				}
-
-				// Click on backdrop (not on the modal box) also closes
-				overlay.addEventListener('click', (e) => {
-					if (e.target === overlay) closeModal();
-				});
-
-				// Triple tap detection
-				let taps = 0, tapTimer: ReturnType<typeof setTimeout>;
-				function onTap() {
-					taps++; clearTimeout(tapTimer);
-					if (taps >= 3) { taps = 0; openModal(); return; }
-					tapTimer = setTimeout(() => { taps = 0; }, 600);
-				}
-				logo.addEventListener('click', onTap);
-				logo.addEventListener('touchend', (e) => { e.preventDefault(); onTap(); }, { passive: false });
-				logo.style.cursor = 'pointer';
-
-				document.getElementById('owner-yes')?.addEventListener('click', () => { window.location.href = '/me'; });
-				document.getElementById('owner-no')?.addEventListener('click', closeModal);
-			})();
-
-			const STORAGE_KEY = 'tesdash-category-order';
+			const STORAGE_KEY = 'tesdash-me-category-order';
 			const container = document.getElementById('categories') as HTMLElement;
 
 			function getSections() {
@@ -2120,7 +1828,7 @@ const categories = await Promise.all(
 			applyCountryActive(detectedCountry);
 
 			// ── Custom Apps ──
-			const CUSTOM_KEY = 'tesdash-custom-apps';
+			const CUSTOM_KEY = 'tesdash-me-custom-apps';
 			const YOUTUBE_REDIRECT = 'https://www.youtube.com/redirect?q=';
 
 			interface CustomApp {
@@ -2454,6 +2162,20 @@ const categories = await Promise.all(
 		flex-shrink: 0;
 	}
 
+	.owner-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 28px;
+		height: 28px;
+		border-radius: 50%;
+		color: rgba(255, 255, 255, 0.12);
+		text-decoration: none;
+		transition: color 200ms ease;
+		align-self: flex-end;
+	}
+
+	.owner-btn:hover { color: rgba(255, 255, 255, 0.45); }
 
 	.locale-section-label {
 		font-size: 0.7rem;
@@ -3499,11 +3221,6 @@ const categories = await Promise.all(
 		pointer-events: auto;
 	}
 
-	.modal-overlay.is-closing,
-	.modal-overlay.is-opening {
-		transition: opacity 700ms ease;
-	}
-
 	.modal-box {
 		position: relative;
 		background: rgba(18, 18, 28, 0.92);
@@ -3963,112 +3680,4 @@ const categories = await Promise.all(
 			transform: none;
 		}
 	}
-
-/* ── Owner Modal ── */
-#owner-canvas {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-	pointer-events: none;
-}
-
-.owner-modal-box {
-	text-align: center;
-	padding: 2.5rem 2rem;
-	max-width: 340px;
-	transform: scale(0.9) translateY(16px);
-	opacity: 0;
-	transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 250ms ease;
-	background: rgba(5, 0, 0, 0.82);
-	border-color: rgba(229, 9, 20, 0.25);
-}
-
-.modal-overlay.is-open {
-	opacity: 1;
-	pointer-events: auto;
-}
-
-.modal-overlay.is-open .owner-modal-box {
-	transform: scale(1) translateY(0);
-	opacity: 1;
-}
-
-.owner-modal-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-	display: inline-block;
-	transform-origin: 70% 70%;
-}
-
-.modal-overlay.is-open .owner-modal-icon {
-	animation: owner-wave 1s ease-in-out 100ms both;
-}
-
-@keyframes owner-wave {
-	0%   { transform: rotate(0deg); }
-	15%  { transform: rotate(18deg); }
-	30%  { transform: rotate(-12deg); }
-	45%  { transform: rotate(18deg); }
-	60%  { transform: rotate(-8deg); }
-	75%  { transform: rotate(12deg); }
-	100% { transform: rotate(0deg); }
-}
-
-.owner-modal-title {
-	font-size: 1.5rem;
-	font-weight: 700;
-	color: var(--text);
-	margin-bottom: 0.4rem;
-}
-
-.owner-modal-sub {
-	font-size: 0.85rem;
-	color: var(--muted);
-	margin-bottom: 1.75rem;
-}
-
-.owner-modal-actions {
-	display: flex;
-	gap: 0.75rem;
-	justify-content: center;
-}
-
-.owner-btn-no,
-.owner-btn-yes {
-	font-family: inherit;
-	font-size: 0.85rem;
-	font-weight: 600;
-	padding: 0.7rem 1.5rem;
-	border-radius: 999px;
-	border: 1px solid var(--border);
-	cursor: pointer;
-	transition: transform 150ms ease, background 150ms ease, border-color 150ms ease, color 150ms ease;
-}
-
-.owner-btn-no {
-	background: var(--surface);
-	color: var(--muted);
-}
-
-.owner-btn-no:hover {
-	background: rgba(255,255,255,0.07);
-	color: var(--text);
-	border-color: rgba(255,255,255,0.15);
-}
-
-.owner-btn-yes {
-	background: rgba(229, 9, 20, 0.15);
-	border-color: rgba(229, 9, 20, 0.4);
-	color: var(--text);
-}
-
-.owner-btn-yes:hover {
-	background: rgba(229, 9, 20, 0.28);
-	border-color: rgba(229, 9, 20, 0.65);
-	transform: scale(1.04);
-}
-
-.owner-btn-no:active,
-.owner-btn-yes:active { transform: scale(0.96); }
 </style>
