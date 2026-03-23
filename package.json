@@ -5,18 +5,21 @@
 	"type": "module",
 	"scripts": {
 		"dev": "astro dev",
+		"prebuild": "node scripts/write-me-config.mjs",
 		"build": "astro build",
 		"preview": "astro preview"
 	},
 	"dependencies": {
 		"@astrojs/svelte": "^8.0.0",
 		"astro": "^6.0.5",
-		"svelte": "^5.53.12"
+		"svelte": "^5.53.12",
+		"three": "^0.183.2"
 	},
 	"devDependencies": {
 		"@tailwindcss/vite": "^4.0.0",
 		"@types/js-yaml": "^4.0.9",
 		"@types/sharp": "^0.32.0",
+		"@types/three": "^0.183.1",
 		"daisyui": "^5.0.0",
 		"js-yaml": "^4.1.0",
 		"sharp": "^0.34.5",

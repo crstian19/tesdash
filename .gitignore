@@ -12,6 +12,9 @@ node_modules/
 .env.*
 !.env.example
 
+# Personal config (never commit — contains private URLs)
+src/data/config.me.yml
+
 # OS
 .DS_Store
 Thumbs.db

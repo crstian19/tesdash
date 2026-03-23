@@ -1,0 +1,21 @@
+# Personal dashboard config — copy this file to config.me.yml and fill in your own URLs.
+# config.me.yml is gitignored and will never be committed to the repository.
+#
+# This file is read by src/pages/me.astro (your private /me page).
+# It supports the exact same syntax as config.yml.
+
+categories:
+  - name: Personal Media
+    apps:
+      - name: Jellyfin
+        url: https://YOUR_JELLYFIN_URL
+        logo: https://cdn.simpleicons.org/jellyfin/00A4DC
+      - name: Plex
+        url: https://app.plex.tv
+        logo: https://cdn.simpleicons.org/plex/E5A00D
+
+  - name: Streaming
+    apps:
+      - name: Netflix
+        url: https://www.netflix.com
+        logo: /logos/netflix-icon.svg

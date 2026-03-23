@@ -77,58 +77,24 @@ categories:
         url: https://www.nba.com/watch
         logo: /logos/nba.png
         color: "#1D428A"
-  - name: Personal Media
-    apps:
-      - name: Emby
-        url: https://192.168.1.20:8920
-        logo: https://cdn.simpleicons.org/emby/52B54B
-      - name: Jellyfin
-        url: https://192.168.1.20:8096
-        logo: https://cdn.simpleicons.org/jellyfin/00A4DC
-      - name: Plex
-        url: https://app.plex.tv
-        logo: https://cdn.simpleicons.org/plex/E5A00D
-      - name: Stremio
-        url: https://web.stremio.com
-        logo: https://cdn.simpleicons.org/stremio/8A5FBF
 
-  - name: Gaming
-    apps:
-      - name: GeForce Now
-        url: https://play.geforcenow.com
-        logo: https://cdn.simpleicons.org/nvidia/76B900
+  # Personal Media is intentionally hidden from the public dashboard.
+  # Access your personal apps via the owner page (/me).
+  # - name: Personal Media
+  #   apps:
+  #     - name: Emby
+  #       url: https://192.168.1.20:8920
+  #       logo: https://cdn.simpleicons.org/emby/52B54B
+  #     - name: Jellyfin
+  #       url: https://192.168.1.20:8096
+  #       logo: https://cdn.simpleicons.org/jellyfin/00A4DC
+  #     - name: Plex
+  #       url: https://app.plex.tv
+  #       logo: https://cdn.simpleicons.org/plex/E5A00D
+  #     - name: Stremio
+  #       url: https://web.stremio.com
+  #       logo: https://cdn.simpleicons.org/stremio/8A5FBF
 
-      - name: Twitch
-        url: https://www.twitch.tv
-        logo: /logos/twitch.svg
-      - name: Xbox Cloud
-        url: https://www.xbox.com/play
-        logo: /logos/xbox.svg
-  - name: Utility
-    apps:
-      - name: Google Maps
-        url: https://maps.google.com
-        logo: /logos/googleMaps.svg
-        fullscreen: false
-      - name: PlugShare
-        url: https://www.plugshare.com
-        logo: /logos/plugshare.png
-        color: "#6CC04A"
-        fullscreen: false
-      - name: Tesla
-        url: https://www.tesla.com
-        logo: https://cdn.simpleicons.org/tesla/CC0000
-        fullscreen: false
-
-      - name: Ventusky
-        url: https://www.ventusky.com
-        logo: /logos/ventusky.png
-        color: "#2196F3"
-        fullscreen: false
-      - name: Waze
-        url: https://www.waze.com
-        logo: https://cdn.simpleicons.org/waze/05C8F7
-        fullscreen: false
   - name: Charging
     apps:
       # United States
@@ -313,3 +279,41 @@ categories:
         color: "#6CBE45"
         fullscreen: false
         regions: ['DE', 'AT', 'CH', 'NL', 'BE', 'FR', 'SE', 'NO', 'DK', 'FI', 'PL']
+
+  - name: Gaming
+    apps:
+      - name: GeForce Now
+        url: https://play.geforcenow.com
+        logo: https://cdn.simpleicons.org/nvidia/76B900
+
+      - name: Twitch
+        url: https://www.twitch.tv
+        logo: /logos/twitch.svg
+      - name: Xbox Cloud
+        url: https://www.xbox.com/play
+        logo: /logos/xbox.svg
+  - name: Utility
+    apps:
+      - name: Google Maps
+        url: https://maps.google.com
+        logo: /logos/googleMaps.svg
+        fullscreen: false
+      - name: PlugShare
+        url: https://www.plugshare.com
+        logo: /logos/plugshare.png
+        color: "#6CC04A"
+        fullscreen: false
+      - name: Tesla
+        url: https://www.tesla.com
+        logo: https://cdn.simpleicons.org/tesla/CC0000
+        fullscreen: false
+
+      - name: Ventusky
+        url: https://www.ventusky.com
+        logo: /logos/ventusky.png
+        color: "#2196F3"
+        fullscreen: false
+      - name: Waze
+        url: https://www.waze.com
+        logo: https://cdn.simpleicons.org/waze/05C8F7
+        fullscreen: false
