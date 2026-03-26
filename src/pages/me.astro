@@ -119,9 +119,10 @@ const categories = await Promise.all(
 		<link rel="manifest" href="/site.webmanifest" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" media="print" onload="this.media='all'" />
+		<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" /></noscript>
 		<Font cssVariable="--font-geist" preload />
-		<link rel="preload" href="/logos/tesdash.webp" as="image" type="image/webp" />
+		<link rel="preload" href="/logos/tesdash.webp" as="image" type="image/webp" fetchpriority="high" />
 		<ClientRouter />
 		<script defer src="https://umami.crstian.me/script.js" data-website-id="ae9aeef2-57e2-43ea-a470-bd74841115c9"></script>
 	</head>
@@ -159,7 +160,7 @@ const categories = await Promise.all(
 				</div>
 				<h1 class="logo">
 					<picture>
-						<img src="/logos/tesdash.webp" alt="Tesdash" class="logo-img" fetchpriority="high" width="800" height="446" />
+						<img src="/logos/tesdash.webp" alt="Tesdash" class="logo-img" fetchpriority="high" width="600" height="335" />
 					</picture>
 				</h1>
 				<div class="header-right">
