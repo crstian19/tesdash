@@ -495,6 +495,32 @@ const categories = await Promise.all(
 				</div>
 			</div>
 
+			<!-- Donate Popup -->
+			<div class="modal-overlay" id="modal-donate" aria-hidden="true" inert>
+				<div class="modal-box donate-box" role="dialog" aria-modal="true" aria-labelledby="donate-title">
+					<button class="modal-close" data-close="modal-donate" aria-label="Close">&times;</button>
+					<div class="donate-hero" id="donate-hero" aria-hidden="true">
+						<svg class="donate-bolt" viewBox="0 0 24 24">
+							<path class="donate-bolt-fill" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#facc15" stroke="#facc15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							<path class="donate-bolt-trace" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="none" stroke="#fff" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" pathLength="100"/>
+						</svg>
+						<div class="donate-lottie" id="donate-lottie"></div>
+						<span class="donate-flash"></span>
+					</div>
+					<h2 id="donate-title" class="donate-title" data-i18n="donate.title">Keep Tesdash alive</h2>
+					<p class="donate-desc" data-i18n-html="donate.desc">Running Tesdash costs about <strong>&euro;30/year</strong>. If we each chip in a little, together we keep it free and ad-free for good.</p>
+					<div class="donate-actions">
+						<button class="donate-btn-primary" id="donate-support" data-i18n="donate.cta">Support Tesdash</button>
+						<a class="donate-btn-star" id="donate-star" href="https://github.com/crstian19/tesdash" target="_blank" rel="noopener noreferrer">
+							<svg class="donate-star-gh" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							<span data-i18n="donate.star">Star it on GitHub</span>
+							<svg class="donate-star-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+						</a>
+						<button class="donate-btn-secondary" data-close="modal-donate" data-i18n="donate.later">Maybe later</button>
+					</div>
+				</div>
+			</div>
+
 			<!-- Locale Modal -->
 		<div class="modal-overlay" id="modal-locale" aria-hidden="true" inert>
 			<div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="locale-title">
@@ -691,6 +717,9 @@ const categories = await Promise.all(
 		</main>
 
 		<script>
+			import confetti from 'canvas-confetti';
+			import lottie from 'lottie-web';
+
 			// ── i18n ──
 			const T: Record<string, Record<string, string>> = {
 				en: {
@@ -739,6 +768,11 @@ const categories = await Promise.all(
 					'support.back': '← Back',
 					'support.scan': 'Scan with your phone to donate',
 					'support.open': 'Open link',
+					'donate.title': 'Keep Tesdash alive',
+					'donate.desc': 'Running Tesdash costs about <strong>€30/year</strong>. If we each chip in a little, together we keep it free and ad-free for good.',
+					'donate.cta': 'Support Tesdash',
+					'donate.later': 'Maybe later',
+					'donate.star': 'Star it on GitHub',
 					'locale.title': 'Language & Region',
 					'locale.lang-label': 'Language',
 					'locale.country-label': 'Country',
@@ -796,6 +830,11 @@ const categories = await Promise.all(
 				'support.back': '← Tilbake',
 				'support.scan': 'Skann med telefonen for å donere',
 				'support.open': 'Åpne lenke',
+				'donate.title': 'Hold Tesdash i live',
+				'donate.desc': 'Å drifte Tesdash koster rundt <strong>30 €/år</strong>. Hvis vi alle bidrar litt, holder vi det gratis og reklamefritt for alltid.',
+				'donate.cta': 'Støtt Tesdash',
+				'donate.later': 'Kanskje senere',
+				'donate.star': 'Gi en stjerne på GitHub',
 				'locale.title': 'Språk og region',
 				'locale.lang-label': 'Språk',
 				'locale.country-label': 'Land',
@@ -853,6 +892,11 @@ const categories = await Promise.all(
 				'support.back': '← Zurück',
 				'support.scan': 'Mit dem Handy scannen um zu spenden',
 				'support.open': 'Link öffnen',
+				'donate.title': 'Tesdash am Leben halten',
+				'donate.desc': 'Der Betrieb von Tesdash kostet rund <strong>30 €/Jahr</strong>. Wenn jeder ein wenig beisteuert, bleibt es für alle kostenlos und werbefrei.',
+				'donate.cta': 'Tesdash unterstützen',
+				'donate.later': 'Vielleicht später',
+				'donate.star': 'Stern auf GitHub geben',
 				'locale.title': 'Sprache & Region',
 				'locale.lang-label': 'Sprache',
 				'locale.country-label': 'Land',
@@ -910,6 +954,11 @@ const categories = await Promise.all(
 				'support.back': '← Tillbaka',
 				'support.scan': 'Skanna med din telefon för att donera',
 				'support.open': 'Öppna länk',
+				'donate.title': 'Håll Tesdash vid liv',
+				'donate.desc': 'Att driva Tesdash kostar cirka <strong>30 €/år</strong>. Om vi alla bidrar lite håller vi det gratis och reklamfritt för alltid.',
+				'donate.cta': 'Stöd Tesdash',
+				'donate.later': 'Kanske senare',
+				'donate.star': 'Stjärnmärk på GitHub',
 				'locale.title': 'Språk & region',
 				'locale.lang-label': 'Språk',
 				'locale.country-label': 'Land',
@@ -967,6 +1016,11 @@ const categories = await Promise.all(
 				'support.back': '← Terug',
 				'support.scan': 'Scan met je telefoon om te doneren',
 				'support.open': 'Link openen',
+				'donate.title': 'Houd Tesdash in leven',
+				'donate.desc': 'Tesdash draaiende houden kost ongeveer <strong>€30/jaar</strong>. Als we allemaal een beetje bijdragen, houden we het gratis en reclamevrij voor altijd.',
+				'donate.cta': 'Steun Tesdash',
+				'donate.later': 'Misschien later',
+				'donate.star': 'Geef een ster op GitHub',
 				'locale.title': 'Taal & regio',
 				'locale.lang-label': 'Taal',
 				'locale.country-label': 'Land',
@@ -1024,6 +1078,11 @@ const categories = await Promise.all(
 				'support.back': '← Retour',
 				'support.scan': 'Scannez avec votre téléphone pour faire un don',
 				'support.open': 'Ouvrir le lien',
+				'donate.title': 'Gardez Tesdash en vie',
+				'donate.desc': "Faire tourner Tesdash coûte environ <strong>30 €/an</strong>. Si chacun participe un peu, ensemble nous le gardons gratuit et sans pub pour toujours.",
+				'donate.cta': 'Soutenir Tesdash',
+				'donate.later': 'Plus tard',
+				'donate.star': 'Mettre une étoile sur GitHub',
 				'locale.title': 'Langue & région',
 				'locale.lang-label': 'Langue',
 				'locale.country-label': 'Pays',
@@ -1081,6 +1140,11 @@ const categories = await Promise.all(
 				'support.back': '← Tilbage',
 				'support.scan': 'Scan med din telefon for at donere',
 				'support.open': 'Åbn link',
+				'donate.title': 'Hold Tesdash i live',
+				'donate.desc': 'At drive Tesdash koster omkring <strong>30 €/år</strong>. Hvis vi alle bidrager lidt, holder vi det gratis og reklamefrit for altid.',
+				'donate.cta': 'Støt Tesdash',
+				'donate.later': 'Måske senere',
+				'donate.star': 'Giv en stjerne på GitHub',
 				'locale.title': 'Sprog & region',
 				'locale.lang-label': 'Sprog',
 				'locale.country-label': 'Land',
@@ -1138,6 +1202,11 @@ const categories = await Promise.all(
 				'support.back': '← Takaisin',
 				'support.scan': 'Skannaa puhelimellasi lahjoittaaksesi',
 				'support.open': 'Avaa linkki',
+				'donate.title': 'Pidä Tesdash hengissä',
+				'donate.desc': 'Tesdashin ylläpito maksaa noin <strong>30 €/vuosi</strong>. Jos jokainen osallistuu vähän, pidämme sen yhdessä ilmaisena ja mainoksettomana.',
+				'donate.cta': 'Tue Tesdashia',
+				'donate.later': 'Ehkä myöhemmin',
+				'donate.star': 'Anna tähti GitHubissa',
 				'locale.title': 'Kieli ja alue',
 				'locale.lang-label': 'Kieli',
 				'locale.country-label': 'Maa',
@@ -1195,6 +1264,11 @@ const categories = await Promise.all(
 				'support.back': '← Indietro',
 				'support.scan': 'Scansiona con il tuo telefono per donare',
 				'support.open': 'Apri link',
+				'donate.title': 'Mantieni vivo Tesdash',
+				'donate.desc': "Mantenere Tesdash online costa circa <strong>30 €/anno</strong>. Se ognuno contribuisce un po', insieme lo manteniamo gratuito e senza pubblicità.",
+				'donate.cta': 'Sostieni Tesdash',
+				'donate.later': 'Forse più tardi',
+				'donate.star': 'Metti una stella su GitHub',
 				'locale.title': 'Lingua & regione',
 				'locale.lang-label': 'Lingua',
 				'locale.country-label': 'Paese',
@@ -1252,6 +1326,11 @@ const categories = await Promise.all(
 				'support.back': '← Volver',
 				'support.scan': 'Escanea con tu móvil para donar',
 				'support.open': 'Abrir enlace',
+				'donate.title': 'Mantén Tesdash con vida',
+				'donate.desc': 'Mantener Tesdash cuesta unos <strong>30 €/año</strong>. Si cada uno pone un poquito, entre todos lo mantenemos gratis y sin anuncios para siempre.',
+				'donate.cta': 'Apoyar Tesdash',
+				'donate.later': 'Quizás más tarde',
+				'donate.star': 'Dale una estrella en GitHub',
 				'locale.title': 'Idioma y región',
 				'locale.lang-label': 'Idioma',
 				'locale.country-label': 'País',
@@ -1309,6 +1388,11 @@ const categories = await Promise.all(
 				'support.back': '← Voltar',
 				'support.scan': 'Escaneie com seu celular para doar',
 				'support.open': 'Abrir link',
+				'donate.title': 'Mantém o Tesdash vivo',
+				'donate.desc': 'Manter o Tesdash custa cerca de <strong>30 €/ano</strong>. Se cada um contribuir um pouco, juntos mantemo-lo gratuito e sem anúncios para sempre.',
+				'donate.cta': 'Apoiar o Tesdash',
+				'donate.later': 'Talvez mais tarde',
+				'donate.star': 'Dá uma estrela no GitHub',
 				'locale.title': 'Idioma e região',
 				'locale.lang-label': 'Idioma',
 				'locale.country-label': 'País',
@@ -1366,6 +1450,11 @@ const categories = await Promise.all(
 				'support.back': '← Wróć',
 				'support.scan': 'Zeskanuj telefonem, aby przekazać darowiznę',
 				'support.open': 'Otwórz link',
+				'donate.title': 'Utrzymaj Tesdash przy życiu',
+				'donate.desc': 'Utrzymanie Tesdash kosztuje około <strong>30 €/rok</strong>. Jeśli każdy dołoży trochę, razem utrzymamy go za darmo i bez reklam na zawsze.',
+				'donate.cta': 'Wesprzyj Tesdash',
+				'donate.later': 'Może później',
+				'donate.star': 'Zostaw gwiazdkę na GitHubie',
 				'locale.title': 'Język i region',
 				'locale.lang-label': 'Język',
 				'locale.country-label': 'Kraj',
@@ -1423,6 +1512,11 @@ const categories = await Promise.all(
 				'support.back': '← 返回',
 				'support.scan': '用手机扫描二维码捐款',
 				'support.open': '打开链接',
+				'donate.title': '让 Tesdash 继续运行',
+				'donate.desc': '维持 Tesdash 运行每年约需 <strong>30 欧元</strong>。只要每个人出一点力，我们就能一起让它永远免费、无广告。',
+				'donate.cta': '支持 Tesdash',
+				'donate.later': '以后再说',
+				'donate.star': '在 GitHub 上点星',
 				'locale.title': '语言与地区',
 				'locale.lang-label': '语言',
 				'locale.country-label': '国家',
@@ -1695,10 +1789,62 @@ const categories = await Promise.all(
 				document.getElementById('support-view-detail')!.classList.add('support-view--hidden');
 			}
 
+			function celebrate(el: HTMLElement) {
+				const rect = el.getBoundingClientRect();
+				const origin = {
+					x: (rect.left + rect.width / 2) / window.innerWidth,
+					y: (rect.top + rect.height / 2) / window.innerHeight,
+				};
+				const colors = ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff'];
+				confetti({ particleCount: 90, spread: 72, startVelocity: 42, origin, colors, zIndex: 200, disableForReducedMotion: true });
+				confetti({ particleCount: 45, spread: 110, startVelocity: 28, decay: 0.92, scalar: 0.9, origin, colors, zIndex: 200, disableForReducedMotion: true });
+			}
+
 			document.querySelectorAll<HTMLElement>('.support-card').forEach(btn => {
-				btn.addEventListener('click', () => showSupportDetail(btn.dataset.platform!));
+				btn.addEventListener('click', () => {
+					celebrate(btn);
+					showSupportDetail(btn.dataset.platform!);
+				});
 			});
 			document.getElementById('support-back')?.addEventListener('click', showSupportList);
+
+			// ── Donate prompt (shown to ~10% of visits, then muted for 30 days) ──
+			const donateContainer = document.getElementById('donate-lottie');
+			const donateAnim = donateContainer ? lottie.loadAnimation({
+				container: donateContainer,
+				renderer: 'svg',
+				loop: false,
+				autoplay: false,
+				path: '/lottie/heart.json',
+			}) : null;
+
+			const donateHero = document.getElementById('donate-hero');
+			function openDonate() {
+				openModal('modal-donate');
+				// Restart the bolt → flash → heart intro sequence
+				if (donateHero) {
+					donateHero.classList.remove('is-playing');
+					void donateHero.offsetWidth; // force reflow so the CSS animations replay
+					donateHero.classList.add('is-playing');
+				}
+				// Heart bursts in right after the bolt strikes
+				window.setTimeout(() => donateAnim?.goToAndPlay(0, true), 800);
+			}
+
+			document.getElementById('donate-support')?.addEventListener('click', () => {
+				closeModal('modal-donate');
+				openModal('modal-support');
+			});
+			document.getElementById('donate-star')?.addEventListener('click', () => closeModal('modal-donate'));
+			(function () {
+				const KEY = 'tesdash-donate-prompt';
+				const COOLDOWN = 30 * 24 * 60 * 60 * 1000; // 30 days
+				const last = parseInt(localStorage.getItem(KEY) || '0', 10);
+				if (last && Date.now() - last < COOLDOWN) return;
+				if (Math.random() >= 0.1) return;
+				localStorage.setItem(KEY, String(Date.now()));
+				setTimeout(openDonate, 1500);
+			})();
 
 			// Reset to list when modal closes
 			document.querySelector('[data-close="modal-support"]')?.addEventListener('click', () => {
@@ -3973,6 +4119,193 @@ const categories = await Promise.all(
 		background: rgba(168, 85, 247, 0.2);
 		border-color: rgba(168, 85, 247, 0.6);
 		color: #c084fc;
+	}
+
+	/* Donate popup */
+	.donate-box {
+		max-width: 24rem;
+		text-align: center;
+		padding-top: 2rem;
+	}
+
+	.donate-hero {
+		position: relative;
+		width: 9.5rem;
+		height: 7rem;
+		margin: -0.75rem auto 0.5rem;
+		pointer-events: none;
+	}
+
+	.donate-lottie {
+		position: absolute;
+		inset: 0;
+		opacity: 0;
+	}
+	.donate-lottie svg { display: block; }
+
+	.donate-bolt {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 3.4rem;
+		height: 3.4rem;
+		transform: translate(-50%, -50%) scale(0.7);
+		opacity: 0;
+	}
+	.donate-bolt-fill { opacity: 0; }
+	.donate-bolt-trace {
+		stroke-dasharray: 100 100;
+		stroke-dashoffset: 100;
+	}
+
+	.donate-flash {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 3.2rem;
+		height: 3.2rem;
+		transform: translate(-50%, -50%) scale(0.2);
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(255, 255, 255, 0.95), rgba(250, 204, 21, 0.55) 42%, transparent 70%);
+		opacity: 0;
+	}
+
+	/* Intro sequence: bolt charges up, flashes, then bursts into the heart */
+	.donate-hero.is-playing .donate-bolt       { animation: donate-bolt-in 0.98s ease-out forwards; }
+	.donate-hero.is-playing .donate-bolt-fill  { animation: donate-bolt-fill 0.98s ease-out forwards; }
+	.donate-hero.is-playing .donate-bolt-trace { animation: donate-bolt-trace 0.72s ease-in-out forwards; }
+	.donate-hero.is-playing .donate-flash      { animation: donate-flash 0.55s ease-out 0.6s forwards; }
+	.donate-hero.is-playing .donate-lottie     { animation: donate-heart-in 0.35s ease-out 0.78s forwards; }
+
+	@keyframes donate-bolt-trace {
+		0%   { stroke-dashoffset: 100; opacity: 0; }
+		10%  { opacity: 1; }
+		70%  { stroke-dashoffset: 0;   opacity: 1; }
+		100% { stroke-dashoffset: 0;   opacity: 1; }
+	}
+	@keyframes donate-bolt-fill {
+		0%, 22% { opacity: 0; }
+		45%     { opacity: 0.5; }
+		55%     { opacity: 0.95; }
+		62%     { opacity: 0.6; }
+		70%     { opacity: 1; }
+		100%    { opacity: 1; }
+	}
+	@keyframes donate-bolt-in {
+		0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.7); filter: drop-shadow(0 0 2px #facc15); }
+		15%  { opacity: 1; transform: translate(-50%, -50%) scale(1);   filter: drop-shadow(0 0 3px #facc15); }
+		60%  { opacity: 1; transform: translate(-50%, -50%) scale(1);   filter: drop-shadow(0 0 5px #facc15); }
+		72%  { opacity: 1; transform: translate(-50%, -50%) scale(1.28); filter: drop-shadow(0 0 16px #fde68a); }
+		100% { opacity: 0; transform: translate(-50%, -50%) scale(1.6);  filter: drop-shadow(0 0 20px #fde68a); }
+	}
+	@keyframes donate-flash {
+		0%   { opacity: 0;   transform: translate(-50%, -50%) scale(0.2); }
+		40%  { opacity: 0.9; transform: translate(-50%, -50%) scale(1.15); }
+		100% { opacity: 0;   transform: translate(-50%, -50%) scale(1.9); }
+	}
+	@keyframes donate-heart-in {
+		0%   { opacity: 0; }
+		100% { opacity: 1; }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.donate-bolt,
+		.donate-flash { display: none; }
+		.donate-lottie { opacity: 1; animation: none; }
+	}
+
+	.donate-title {
+		font-size: 1.4rem;
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		color: var(--text);
+		margin-bottom: 0.65rem;
+	}
+
+	.donate-desc {
+		font-size: 0.92rem;
+		line-height: 1.6;
+		color: var(--muted);
+		margin: 0 auto 1.6rem;
+		max-width: 20rem;
+	}
+
+	.donate-desc strong {
+		color: var(--text);
+		font-weight: 700;
+		white-space: nowrap;
+	}
+
+	.donate-actions {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+	}
+
+	.donate-btn-primary {
+		font-family: inherit;
+		font-size: 0.92rem;
+		font-weight: 600;
+		padding: 0.85rem 1.5rem;
+		border-radius: 999px;
+		border: none;
+		background: linear-gradient(135deg, #a855f7, #7c3aed);
+		color: #fff;
+		cursor: pointer;
+		box-shadow: 0 8px 24px rgba(124, 58, 237, 0.35);
+		transition: transform 150ms ease, box-shadow 150ms ease, filter 150ms ease;
+	}
+	.donate-btn-primary:hover {
+		transform: translateY(-1px) scale(1.02);
+		box-shadow: 0 12px 30px rgba(124, 58, 237, 0.5);
+		filter: brightness(1.1);
+	}
+
+	.donate-btn-star {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		font-family: inherit;
+		font-size: 0.85rem;
+		font-weight: 600;
+		padding: 0.7rem 1.5rem;
+		border-radius: 999px;
+		border: 1px solid var(--border);
+		background: rgba(255, 255, 255, 0.03);
+		color: var(--text);
+		text-decoration: none;
+		cursor: pointer;
+		transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+	}
+	.donate-btn-star:hover {
+		background: rgba(255, 255, 255, 0.07);
+		border-color: rgba(255, 255, 255, 0.18);
+		transform: translateY(-1px);
+	}
+	.donate-btn-star:active { transform: scale(0.97); }
+	.donate-star-gh { width: 1rem; height: 1rem; flex-shrink: 0; }
+	.donate-star-icon { width: 1rem; height: 1rem; flex-shrink: 0; color: #facc15; }
+
+	.donate-btn-secondary {
+		font-family: inherit;
+		font-size: 0.82rem;
+		font-weight: 500;
+		padding: 0.5rem 1.5rem;
+		border-radius: 999px;
+		border: none;
+		background: transparent;
+		color: var(--muted);
+		cursor: pointer;
+		transition: color 150ms ease;
+	}
+	.donate-btn-secondary:hover { color: var(--text); }
+	.donate-btn-primary:active,
+	.donate-btn-secondary:active { transform: scale(0.97); }
+
+	@media (prefers-reduced-motion: reduce) {
+		.donate-heart,
+		.donate-heart-glow { animation: none; }
 	}
 
 	.project-soon-badge {
