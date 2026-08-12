@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-	site: 'https://tesflix.crstian.me',
+	site: 'https://tesda.sh',
 	integrations: [svelte(), sitemap({ filter: (page) => !page.includes('/me') })],
 	build: {
 		inlineStylesheets: 'always'
