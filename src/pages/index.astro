@@ -1,7 +1,7 @@
 ---
 import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
-import yaml from 'js-yaml';
+import { load } from 'js-yaml';
 import sharp from 'sharp';
 import Clock from '../components/Clock.svelte';
 import UrlLauncher from '../components/UrlLauncher.svelte';
@@ -90,7 +90,7 @@ const YOUTUBE_REDIRECT = 'https://www.youtube.com/redirect?q=';
 
 const configPath = join(process.cwd(), 'src/data/config.yml');
 const raw = readFileSync(configPath, 'utf-8');
-const config = yaml.load(raw) as Config;
+const config = load(raw) as Config;
 
 const categories = await Promise.all(
 	config.categories.map(async (cat) => ({
