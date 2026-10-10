@@ -29,7 +29,7 @@
 		"@testing-library/svelte": "^5.4.2",
 		"@types/canvas-confetti": "^1.9.0",
 		"@types/sharp": "^0.32.0",
-		"@types/three": "^0.185.0",
+		"@types/three": "^0.186.0",
 		"daisyui": "^5.5.19",
 		"happy-dom": "^20.14.0",
 		"js-yaml": "^5.0.0",
