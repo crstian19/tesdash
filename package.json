@@ -31,7 +31,7 @@
 		"@types/sharp": "^0.32.0",
 		"@types/three": "^0.186.0",
 		"daisyui": "^5.5.19",
-		"happy-dom": "^20.14.0",
+		"happy-dom": "^21.0.0",
 		"js-yaml": "^5.0.0",
 		"sharp": "^0.35.0",
 		"tailwindcss": "^4.2.4",
