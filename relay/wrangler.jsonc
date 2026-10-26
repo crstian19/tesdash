@@ -1,0 +1,20 @@
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "tesdash-relay",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-10-01",
+	// Served on the same hostname as the static site, so the dashboard can use the
+	// default relative endpoint (PUBLIC_SEND_RELAY_URL=/api/send) without CORS.
+	// Self-hosting? Point this at your own zone, or remove "routes" and use the
+	// workers.dev URL together with ALLOWED_ORIGINS below.
+	"routes": [{ "pattern": "tesda.sh/api/send/*", "zone_name": "tesda.sh" }],
+	"vars": {
+		"ALLOWED_ORIGINS": ""
+	},
+	"durable_objects": {
+		"bindings": [{ "name": "ROOMS", "class_name": "Room" }]
+	},
+	// SQLite-backed Durable Objects are the only kind available on the Workers Free plan.
+	"migrations": [{ "tag": "v1", "new_sqlite_classes": ["Room"] }],
+	"observability": { "enabled": true }
+}

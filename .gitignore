@@ -7,8 +7,12 @@ node_modules/
 # Astro generated
 .astro/
 
+# Wrangler local state
+.wrangler/
+
 # Environment
 .env
+.dev.vars
 .env.*
 !.env.example
 

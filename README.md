@@ -46,6 +46,7 @@ This is applied automatically at build time — you just add URLs to the config 
 - **Category drag & drop** — reorder categories by dragging the handle; order persists in `localStorage`
 - **Add custom apps** — tap the `+` button to add any app at runtime without touching the config
 - **URL launcher** — type any URL and open it fullscreen instantly
+- **Send from phone** *(optional)* — pair your phone with a QR code and send links to the car's screen, end-to-end encrypted ([setup](#send-from-phone-optional))
 - **Language & Region modal** — 13 interface languages; country filter hides apps unavailable in your region
 - **Regional app support** — apps can be limited to specific countries via `regions:` in the config
 - **EV charging calculator** — calculates charge time, cost and energy for all Tesla models with a dual-range battery slider
@@ -91,6 +92,65 @@ services:
 
 Images are published automatically on every version tag for `amd64` and `arm64`.
 
+## Send from phone (optional)
+
+Typing URLs on the touchscreen is tedious, so Tesdash can receive links from your phone:
+
+1. In the car, tap **Send from phone** under the URL bar. A QR code appears.
+2. Scan it with your phone. It opens `/send` on your phone, already paired with the car.
+3. Paste a link and tap **Send**. It pops up on the car's screen, ready to open fullscreen.
+
+The feature is **off by default** because it needs a small relay next to the static site. The Docker image does not include it.
+
+### How it works
+
+- The QR code points to `/send#k=<key>`. The key stays in the URL fragment, which browsers never send to a server.
+- The phone encrypts each link with AES-GCM using that key. The relay only sees an opaque room id (a hash of the key) and ciphertext.
+- The relay is a Cloudflare Worker with one Durable Object per room (`relay/`). The car keeps a hibernating WebSocket open, so an idle car costs nothing. If the car is offline, a link waits up to 10 minutes and is deleted once delivered.
+- Everything fits in the Cloudflare **Workers Free** plan. On that plan, going over a daily limit makes requests fail until the next day; it never bills you.
+
+### Enable it
+
+1. Deploy the relay (needs a free Cloudflare account):
+
+   ```bash
+   cd relay
+   bun install
+   # Edit "routes" in wrangler.jsonc to point at your own domain, or remove it
+   # to use the workers.dev URL instead.
+   bunx wrangler deploy
+   ```
+
+2. Build the site with the relay URL:
+
+   ```bash
+   # Relay served on the same domain under /api/send (recommended, no CORS)
+   PUBLIC_SEND_RELAY_URL=/api/send bun run build
+
+   # Relay on another origin, e.g. workers.dev
+   PUBLIC_SEND_RELAY_URL=https://tesdash-relay.<you>.workers.dev/api/send bun run build
+   ```
+
+   With Cloudflare Pages, set `PUBLIC_SEND_RELAY_URL` as a build environment variable instead.
+
+3. If the relay is on a different origin than the site, allow the site in `relay/wrangler.jsonc`:
+
+   ```jsonc
+   "vars": { "ALLOWED_ORIGINS": "https://dash.example.com" }
+   ```
+
+The site must be served over HTTPS (or `localhost`) because the encryption uses the Web Crypto API.
+
+### Local development
+
+```bash
+# Terminal 1: relay on :8787, allowing the Astro dev server
+cd relay && bunx wrangler dev --var ALLOWED_ORIGINS:http://localhost:4321
+
+# Terminal 2: site
+PUBLIC_SEND_RELAY_URL=http://localhost:8787/api/send bun dev
+```
+
 ## Configuration
 
 Edit `src/data/config.yml` to add, remove or reorganize apps. No code changes needed.
@@ -122,11 +182,15 @@ tesdash/
 ├── src/
 │   ├── components/
 │   │   ├── Clock.svelte
+│   │   ├── SendForm.svelte       ← Phone side of "Send from phone"
+│   │   ├── SendFromPhone.svelte  ← Car side: QR pairing + incoming links
 │   │   └── UrlLauncher.svelte
 │   ├── data/
 │   │   └── config.yml  ← Edit this to configure your apps
 │   └── pages/
-│       └── index.astro
+│       ├── index.astro
+│       └── send.astro  ← Phone page opened from the QR code
+├── relay/              ← Optional Cloudflare Worker for "Send from phone"
 ├── .github/
 │   └── workflows/
 │       └── docker.yml  ← Builds and pushes Docker image on version tags

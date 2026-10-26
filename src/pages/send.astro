@@ -1,0 +1,86 @@
+---
+import { Font } from 'astro:assets';
+import SendForm from '../components/SendForm.svelte';
+
+// Empty means the feature is off for this build (e.g. the Docker image).
+const relay = import.meta.env.PUBLIC_SEND_RELAY_URL ?? '';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Send to Tesla — Tesdash</title>
+		<meta name="robots" content="noindex" />
+		<!-- The pairing key lives in this page's URL fragment, so keep it out of referrers and analytics. -->
+		<meta name="referrer" content="no-referrer" />
+		<meta name="theme-color" content="#0A0A0F" />
+		<link rel="icon" href="/favicon.ico" sizes="any" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<Font cssVariable="--font-geist" preload />
+	</head>
+
+	<body>
+		<div class="ambient" aria-hidden="true">
+			<div class="blob blob-1"></div>
+			<div class="blob blob-2"></div>
+		</div>
+
+		<main>
+			<a href="/" class="logo-link">
+				<img src="/logos/tesdash.webp" alt="Tesdash" width="600" height="335" />
+			</a>
+			<SendForm client:load relay={relay} />
+		</main>
+	</body>
+</html>
+
+<style is:global>
+	*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+	body {
+		background-color: #0A0A0F;
+		color: #F8FAFC;
+		font-family: var(--font-geist), system-ui, sans-serif;
+		min-height: 100dvh;
+		-webkit-font-smoothing: antialiased;
+		overflow-x: hidden;
+	}
+
+	.ambient {
+		position: fixed;
+		inset: 0;
+		pointer-events: none;
+		z-index: 0;
+		overflow: hidden;
+	}
+
+	.blob {
+		position: absolute;
+		border-radius: 50%;
+		filter: blur(120px);
+		opacity: 0.18;
+	}
+
+	.blob-1 { width: 500px; height: 500px; background: #E50914; top: -200px; left: -150px; }
+	.blob-2 { width: 400px; height: 400px; background: #312E81; bottom: -150px; right: -150px; }
+
+	main {
+		position: relative;
+		z-index: 1;
+		min-height: 100dvh;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 1.5rem;
+		padding: 2rem 1rem;
+	}
+
+	.logo-link img {
+		display: block;
+		width: 180px;
+		height: auto;
+	}
+</style>

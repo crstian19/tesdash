@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
 	site: 'https://tesda.sh',
-	integrations: [svelte(), sitemap({ filter: (page) => !page.includes('/me') })],
+	integrations: [svelte(), sitemap({ filter: (page) => !page.includes('/me') && !page.includes('/send') })],
 	build: {
 		inlineStylesheets: 'always'
 	},

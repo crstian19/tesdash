@@ -5,6 +5,7 @@ import { load } from 'js-yaml';
 import sharp from 'sharp';
 import Clock from '../components/Clock.svelte';
 import UrlLauncher from '../components/UrlLauncher.svelte';
+import SendFromPhone from '../components/SendFromPhone.svelte';
 import { Font } from 'astro:assets';
 import ClientRouter from 'astro/components/ClientRouter.astro';
 
@@ -87,6 +88,9 @@ async function extractColor(logo: string, fallback = '#ffffff'): Promise<string>
 }
 
 const YOUTUBE_REDIRECT = 'https://www.youtube.com/redirect?q=';
+
+// "Send from phone" is opt-in at build time because it needs the relay Worker in relay/.
+const sendRelay = import.meta.env.PUBLIC_SEND_RELAY_URL ?? '';
 
 const configPath = join(process.cwd(), 'src/data/config.yml');
 const raw = readFileSync(configPath, 'utf-8');
@@ -295,6 +299,12 @@ const categories = await Promise.all(
 
 						<dt data-i18n="faq.q11">Can an app open without fullscreen?</dt>
 						<dd data-i18n-html="faq.a11">Yes. When adding a custom app via the + button, toggle off Fullscreen to open it directly in the browser. Self-hosted users can also set <code>fullscreen: false</code> on any app in <code>config.yml</code>.</dd>
+						{sendRelay && (
+							<>
+								<dt data-i18n="faq.q12">Can I send links from my phone?</dt>
+								<dd data-i18n-html="faq.a12">Yes. Tap “Send from phone” under the URL bar and scan the QR code. Links you send appear on the car's screen, ready to open fullscreen. They are end-to-end encrypted on your phone, so the relay that delivers them can't read them, and they are deleted once delivered.</dd>
+							</>
+						)}
 					</dl>
 				</div>
 			</div>
@@ -576,6 +586,7 @@ const categories = await Promise.all(
 
 		<div class="launcher-wrap">
 				<UrlLauncher client:load />
+				{sendRelay && <SendFromPhone client:load relay={sendRelay} />}
 			</div>
 
 			<div id="categories">
@@ -792,6 +803,8 @@ const categories = await Promise.all(
 						'faq.a10': 'Yes. Tap the + button in the bottom-right corner to open the Add App form. Enter a name, URL, logo, category and color. You can also choose whether the app opens in fullscreen or in a normal tab.',
 						'faq.q11': 'Can an app open without fullscreen?',
 						'faq.a11': 'Yes. When adding a custom app via the + button, toggle off Fullscreen to open it directly in the browser. Self-hosted users can also set &lt;code&gt;fullscreen: false&lt;/code&gt; on any app in &lt;code&gt;config.yml&lt;/code&gt;.',
+						'faq.q12': "Can I send links from my phone?",
+						'faq.a12': "Yes. Tap “Send from phone” under the URL bar and scan the QR code. Links you send appear on the car's screen, ready to open fullscreen. They are end-to-end encrypted on your phone, so the relay that delivers them can't read them, and they are deleted once delivered.",
 						'selfhost.title': 'Self-Hosting',
 						'selfhost.desc': 'Tesdash is open source and fully self-hostable. Find setup instructions, configuration options, and more on the GitHub repository.',
 						'footer.madeby': 'Made with ❤️ by',
@@ -854,6 +867,8 @@ const categories = await Promise.all(
 						'faq.a10': 'Ja. Trykk på +-knappen nederst til høyre for å åpne skjemaet Legg til app. Skriv inn navn, URL, logo, kategori og farge. Du kan også velge om appen åpnes i fullskjerm eller i en normal fane.',
 						'faq.q11': 'Kan en app åpnes uten fullskjerm?',
 						'faq.a11': 'Ja. Når du legger til en egendefinert app via +-knappen, slå av Fullskjerm for å åpne den direkte i nettleseren. Selvhostende brukere kan også sette &lt;code&gt;fullscreen: false&lt;/code&gt; på en hvilken som helst app i &lt;code&gt;config.yml&lt;/code&gt;.',
+						'faq.q12': "Kan jeg sende lenker fra mobilen?",
+						'faq.a12': "Ja. Trykk på «Send fra mobilen» under URL-feltet og skann QR-koden. Lenker du sender vises på bilens skjerm, klare til å åpnes i fullskjerm. De krypteres ende-til-ende på mobilen, så reléet som leverer dem kan ikke lese dem, og de slettes når de er levert.",
 						'selfhost.title': 'Selvhosting',
 						'selfhost.desc': 'Tesdash er åpen kildekode og kan hostes selv. Finn instruksjoner, konfigurasjonsalternativer og mer på GitHub-repositoriet.',
 						'footer.madeby': 'Laget med ❤️ av',
@@ -916,6 +931,8 @@ const categories = await Promise.all(
 						'faq.a10': 'Ja. Tippe auf die +-Schaltfläche unten rechts, um das Formular App hinzufügen zu öffnen. Gib Name, URL, Logo, Kategorie und Farbe ein. Du kannst auch wählen, ob die App im Vollbildmodus oder in einem normalen Tab geöffnet wird.',
 						'faq.q11': 'Kann eine App ohne Vollbild geöffnet werden?',
 						'faq.a11': 'Ja. Wenn du eine eigene App über die +-Schaltfläche hinzufügst, deaktiviere Vollbild, um sie direkt im Browser zu öffnen. Selbst-hostende Benutzer können auch &lt;code&gt;fullscreen: false&lt;/code&gt; in &lt;code&gt;config.yml&lt;/code&gt; setzen.',
+						'faq.q12': "Kann ich Links vom Handy senden?",
+						'faq.a12': "Ja. Tippe unter der URL-Leiste auf „Vom Handy senden“ und scanne den QR-Code. Gesendete Links erscheinen auf dem Bildschirm des Autos, bereit zum Öffnen im Vollbild. Sie werden auf deinem Handy Ende-zu-Ende verschlüsselt, das Relay, das sie zustellt, kann sie also nicht lesen, und sie werden nach der Zustellung gelöscht.",
 						'selfhost.title': 'Selbst-Hosting',
 						'selfhost.desc': 'Tesdash ist Open Source und vollständig selbst hostbar. Setup-Anleitungen, Konfigurationsoptionen und mehr finden Sie auf dem GitHub-Repository.',
 						'footer.madeby': 'Erstellt mit ❤️ von',
@@ -978,6 +995,8 @@ const categories = await Promise.all(
 						'faq.a10': 'Ja. Tryck på +-knappen längst ner till höger för att öppna formuläret Lägg till app. Ange ett namn, URL, logotyp, kategori och färg. Du kan också välja om appen öppnas i helskärm eller i en vanlig flik.',
 						'faq.q11': 'Kan en app öppnas utan helskärm?',
 						'faq.a11': 'Ja. När du lägger till en anpassad app via +-knappen, stäng av Helskärm för att öppna den direkt i webbläsaren. Självhostande användare kan också sätta &lt;code&gt;fullscreen: false&lt;/code&gt; på valfri app i &lt;code&gt;config.yml&lt;/code&gt;.',
+						'faq.q12': "Kan jag skicka länkar från mobilen?",
+						'faq.a12': "Ja. Tryck på ”Skicka från mobilen” under URL-fältet och skanna QR-koden. Länkar du skickar visas på bilens skärm, redo att öppnas i helskärm. De krypteras från ände till ände på mobilen, så reläet som levererar dem kan inte läsa dem, och de raderas när de har levererats.",
 						'selfhost.title': 'Självhosting',
 						'selfhost.desc': 'Tesdash är öppen källkod och kan hostas lokalt. Hitta installationsanvisningar, konfigurationsalternativ och mer på GitHub-repositoriet.',
 						'footer.madeby': 'Skapad med ❤️ av',
@@ -1040,6 +1059,8 @@ const categories = await Promise.all(
 						'faq.a10': 'Ja. Tik op de +-knop rechtsonder om het formulier App toevoegen te openen. Voer een naam, URL, logo, categorie en kleur in. Je kunt ook kiezen of de app op volledig scherm of in een normaal tabblad opent.',
 						'faq.q11': 'Kan een app zonder volledig scherm openen?',
 						'faq.a11': 'Ja. Wanneer je een aangepaste app toevoegt via de +-knop, zet Volledig scherm uit om hem direct in de browser te openen. Zelf-hostende gebruikers kunnen ook &lt;code&gt;fullscreen: false&lt;/code&gt; instellen in &lt;code&gt;config.yml&lt;/code&gt;.',
+						'faq.q12': "Kan ik links vanaf mijn telefoon versturen?",
+						'faq.a12': "Ja. Tik op „Verstuur vanaf telefoon” onder de URL-balk en scan de QR-code. Links die je verstuurt verschijnen op het scherm van de auto, klaar om op volledig scherm te openen. Ze worden end-to-end versleuteld op je telefoon, dus de relay die ze aflevert kan ze niet lezen, en ze worden na aflevering verwijderd.",
 						'selfhost.title': 'Zelf hosten',
 						'selfhost.desc': 'Tesdash is open source en volledig zelf te hosten. Vind installatie-instructies, configuratieopties en meer op het GitHub-repository.',
 						'footer.madeby': 'Gemaakt met ❤️ door',
@@ -1102,6 +1123,8 @@ const categories = await Promise.all(
 						"faq.a10": "Oui. Appuie sur le bouton + en bas à droite pour ouvrir le formulaire Ajouter une app. Remplis le nom, l'URL, le logo, la catégorie et la couleur. Tu peux aussi choisir si l'app s'ouvre en plein écran ou dans un onglet normal.",
 						"faq.q11": "Une app peut-elle s'ouvrir sans plein écran ?",
 						"faq.a11": "Oui. Lors de l'ajout d'une app personnalisée via le bouton +, désactive Plein écran pour l'ouvrir directement dans le navigateur. Les utilisateurs auto-hébergés peuvent aussi définir &lt;code&gt;fullscreen: false&lt;/code&gt; dans &lt;code&gt;config.yml&lt;/code&gt;.",
+						'faq.q12': "Puis-je envoyer des liens depuis mon téléphone ?",
+						'faq.a12': "Oui. Touche « Envoyer depuis le téléphone » sous la barre d'URL et scanne le QR code. Les liens envoyés apparaissent sur l'écran de la voiture, prêts à s'ouvrir en plein écran. Ils sont chiffrés de bout en bout sur ton téléphone : le relais qui les livre ne peut pas les lire, et ils sont supprimés une fois livrés.",
 						'selfhost.title': 'Auto-hébergement',
 						'selfhost.desc': "Tesdash est open source et entièrement auto-hébergeable. Retrouvez les instructions d'installation, les options de configuration et plus encore sur le dépôt GitHub.",
 						'footer.madeby': 'Fait avec ❤️ par',
@@ -1164,6 +1187,8 @@ const categories = await Promise.all(
 						'faq.a10': 'Ja. Tryk på +-knappen i nederste højre hjørne for at åbne formularen Tilføj app. Indtast et navn, URL, logo, kategori og farve. Du kan også vælge, om appen åbner i fuld skærm eller i en normal fane.',
 						'faq.q11': 'Kan en app åbnes uden fuld skærm?',
 						'faq.a11': 'Ja. Når du tilføjer en brugerdefineret app via +-knappen, slå Fuld skærm fra for at åbne den direkte i browseren. Selvhostende brugere kan også sætte &lt;code&gt;fullscreen: false&lt;/code&gt; på en hvilken som helst app i &lt;code&gt;config.yml&lt;/code&gt;.',
+						'faq.q12': "Kan jeg sende links fra min telefon?",
+						'faq.a12': "Ja. Tryk på “Send fra telefonen” under URL-feltet og scan QR-koden. Links du sender vises på bilens skærm, klar til at åbne i fuld skærm. De krypteres end-to-end på din telefon, så relæet der leverer dem kan ikke læse dem, og de slettes, når de er leveret.",
 						'selfhost.title': 'Selvhosting',
 						'selfhost.desc': 'Tesdash er open source og kan hostes selv. Find opsætningsinstruktioner, konfigurationsmuligheder og mere på GitHub-repositoriet.',
 						'footer.madeby': 'Lavet med ❤️ af',
@@ -1226,6 +1251,8 @@ const categories = await Promise.all(
 						'faq.a10': 'Kyllä. Napauta +-painiketta oikeassa alakulmassa avataksesi Lisää sovellus -lomakkeen. Syötä nimi, URL, logo, kategoria ja väri. Voit myös valita, avautuuko sovellus koko näytölle vai normaalille välilehdelle.',
 						'faq.q11': 'Voiko sovellus avautua ilman koko näyttöä?',
 						'faq.a11': 'Kyllä. Kun lisäät mukautetun sovelluksen +-painikkeen kautta, poista Koko näyttö käytöstä avataksesi sen suoraan selaimessa. Itse isännöivät käyttäjät voivat myös asettaa &lt;code&gt;fullscreen: false&lt;/code&gt; mihin tahansa sovellukseen &lt;code&gt;config.yml&lt;/code&gt;-tiedostossa.',
+						'faq.q12': "Voinko lähettää linkkejä puhelimesta?",
+						'faq.a12': "Kyllä. Napauta URL-palkin alla ”Lähetä puhelimesta” ja skannaa QR-koodi. Lähettämäsi linkit näkyvät auton näytöllä valmiina avattavaksi koko näytölle. Ne salataan päästä päähän puhelimessasi, joten niitä välittävä palvelin ei voi lukea niitä, ja ne poistetaan, kun ne on toimitettu.",
 						'selfhost.title': 'Oma isännointi',
 						'selfhost.desc': 'Tesdash on avoimen lähdekoodin projekti, jota voi isännöidä itse. Löydä asennusohjeet, konfigurointivaihtoehdot ja paljon muuta GitHub-repositoriosta.',
 						'footer.madeby': 'Tehty ❤️ rakkaudella',
@@ -1288,6 +1315,8 @@ const categories = await Promise.all(
 						"faq.a10": "Sì. Tocca il pulsante + in basso a destra per aprire il modulo Aggiungi app. Inserisci nome, URL, logo, categoria e colore. Puoi anche scegliere se l'app si apre a schermo intero o in una scheda normale.",
 						"faq.q11": "Un'app può aprirsi senza schermo intero?",
 						"faq.a11": "Sì. Quando aggiungi un'app personalizzata tramite il pulsante +, disattiva Schermo intero per aprirla direttamente nel browser. Gli utenti self-hosted possono anche impostare &lt;code&gt;fullscreen: false&lt;/code&gt; su qualsiasi app in &lt;code&gt;config.yml&lt;/code&gt;.",
+						'faq.q12': "Posso inviare link dal telefono?",
+						'faq.a12': "Sì. Tocca «Invia dal telefono» sotto la barra degli URL e scansiona il codice QR. I link inviati appaiono sullo schermo dell'auto, pronti da aprire a schermo intero. Sono crittografati end-to-end sul telefono, quindi il relay che li consegna non può leggerli, e vengono eliminati dopo la consegna.",
 						'selfhost.title': 'Self-Hosting',
 						'selfhost.desc': 'Tesdash è open source e completamente auto-ospitabile. Trova istruzioni di configurazione, opzioni di personalizzazione e altro ancora nel repository GitHub.',
 						'footer.madeby': 'Fatto con ❤️ da',
@@ -1350,6 +1379,8 @@ const categories = await Promise.all(
 						'faq.a10': 'Sí. Toca el botón + en la esquina inferior derecha para abrir el formulario Añadir app. Introduce nombre, URL, logo, categoría y color. También puedes elegir si la app se abre en pantalla completa o en una pestaña normal.',
 						'faq.q11': '¿Puede una app abrirse sin pantalla completa?',
 						'faq.a11': 'Sí. Al añadir una app personalizada mediante el botón +, desactiva Pantalla completa para abrirla directamente en el navegador. Los usuarios con autoalojamiento también pueden establecer &lt;code&gt;fullscreen: false&lt;/code&gt; en cualquier app en &lt;code&gt;config.yml&lt;/code&gt;.',
+						'faq.q12': "¿Puedo enviar enlaces desde el móvil?",
+						'faq.a12': "Sí. Toca «Enviar desde el móvil» debajo de la barra de URL y escanea el código QR. Los enlaces que envíes aparecen en la pantalla del coche, listos para abrir en pantalla completa. Se cifran de extremo a extremo en tu móvil, así que el relay que los entrega no puede leerlos, y se borran al entregarse.",
 						'selfhost.title': 'Auto-alojamiento',
 						'selfhost.desc': 'Tesdash es de código abierto y completamente auto-hospedable. Encuentra instrucciones de configuración, opciones de personalización y más en el repositorio de GitHub.',
 						'footer.madeby': 'Hecho con ❤️ por',
@@ -1412,6 +1443,8 @@ const categories = await Promise.all(
 						"faq.a10": "Sim. Toca no botão + no canto inferior direito para abrir o formulário Adicionar app. Preenche nome, URL, logo, categoria e cor. Também podes escolher se a app abre em ecrã inteiro ou numa aba normal.",
 						'faq.q11': 'Uma app pode abrir sem ecrã inteiro?',
 						'faq.a11': 'Sim. Ao adicionar uma app personalizada através do botão +, desativa Ecrã inteiro para a abrir diretamente no navegador. Utilizadores auto-hospedados também podem definir &lt;code&gt;fullscreen: false&lt;/code&gt; em qualquer app no &lt;code&gt;config.yml&lt;/code&gt;.',
+						'faq.q12': "Posso enviar links do telemóvel?",
+						'faq.a12': "Sim. Toca em «Enviar do telemóvel» por baixo da barra de URL e lê o código QR. Os links que enviares aparecem no ecrã do carro, prontos a abrir em ecrã inteiro. São encriptados ponto a ponto no teu telemóvel, por isso o relay que os entrega não os consegue ler, e são apagados depois de entregues.",
 						'selfhost.title': 'Auto-hospedagem',
 						'selfhost.desc': 'Tesdash é de código aberto e totalmente auto-hospedável. Encontre instruções de configuração, opções de personalização e mais no repositório GitHub.',
 						'footer.madeby': 'Feito com ❤️ por',
@@ -1474,6 +1507,8 @@ const categories = await Promise.all(
 						'faq.a10': 'Tak. Naciśnij przycisk + w prawym dolnym rogu, aby otworzyć formularz Dodaj aplikację. Wpisz nazwę, URL, logo, kategorię i kolor. Możesz też wybrać, czy aplikacja otwiera się w trybie pełnoekranowym, czy w normalnej karcie.',
 						'faq.q11': 'Czy aplikacja może otwierać się bez pełnego ekranu?',
 						'faq.a11': 'Tak. Podczas dodawania własnej aplikacji przez przycisk +, wyłącz Pełny ekran, aby otworzyć ją bezpośrednio w przeglądarce. Samodzielnie hostujący użytkownicy mogą też ustawić &lt;code&gt;fullscreen: false&lt;/code&gt; dla dowolnej aplikacji w &lt;code&gt;config.yml&lt;/code&gt;.',
+						'faq.q12': "Czy mogę wysyłać linki z telefonu?",
+						'faq.a12': "Tak. Dotknij „Wyślij z telefonu” pod paskiem URL i zeskanuj kod QR. Wysłane linki pojawiają się na ekranie samochodu, gotowe do otwarcia na pełnym ekranie. Są szyfrowane end-to-end na Twoim telefonie, więc przekaźnik, który je dostarcza, nie może ich odczytać, a po dostarczeniu są usuwane.",
 						'selfhost.title': 'Własny hosting',
 						'selfhost.desc': 'Tesdash jest open source i w pełni możliwy do samodzielnego hostowania. Znajdź instrukcje konfiguracji, opcje personalizacji i więcej w repozytorium GitHub.',
 						'footer.madeby': 'Stworzone z ❤️ przez',
@@ -1536,6 +1571,8 @@ const categories = await Promise.all(
 						'faq.a10': '可以。点击右下角的+按钮打开添加应用表单。填写名称、网址、图标、分类和颜色。您还可以选择应用是以全屏还是普通标签页方式打开。',
 						'faq.q11': '应用可以不全屏打开吗？',
 						'faq.a11': '可以。通过+按钮添加自定义应用时，关闭全屏选项即可直接在浏览器中打开。自托管用户也可以在&lt;code&gt;config.yml&lt;/code&gt;中为任何应用设置&lt;code&gt;fullscreen: false&lt;/code&gt;。',
+						'faq.q12': "我可以从手机发送链接吗？",
+						'faq.a12': "可以。点击网址栏下方的“从手机发送”并扫描二维码。你发送的链接会显示在车辆屏幕上，可直接全屏打开。链接在手机上进行端到端加密，负责传递的中继服务器无法读取，送达后即被删除。",
 						'selfhost.title': '自托管',
 						'selfhost.desc': 'Tesdash 是开源的，完全可以自托管。在 GitHub 仓库中找到设置说明、配置选项等内容。',
 						'footer.madeby': '用 ❤️ 制作，作者',
