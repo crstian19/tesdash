@@ -439,11 +439,11 @@ const categories = await Promise.all(
 								<span class="support-card-name">PayPal</span>
 								<svg class="support-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 							</button>
-							<button class="support-card" data-platform="bmc">
-								<div class="support-card-icon support-card-icon--bmc">
-									<img src="https://cdn.simpleicons.org/buymeacoffee/FFDD00" width="22" height="22" alt="Buy Me a Coffee" />
+							<button class="support-card" data-platform="kofi">
+								<div class="support-card-icon support-card-icon--kofi">
+									<img src="https://cdn.simpleicons.org/kofi/FF5E5B" width="22" height="22" alt="Ko-fi" />
 								</div>
-								<span class="support-card-name">Buy Me a Coffee</span>
+								<span class="support-card-name">Ko-fi</span>
 								<svg class="support-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 							</button>
 							<button class="support-card" data-platform="github">
@@ -1588,7 +1588,7 @@ const categories = await Promise.all(
 				// ── Support modal two-view logic ──
 				const SUPPORT_PLATFORMS: Record<string, { name: string; url: string }> = {
 					github: { name: 'GitHub Sponsors', url: 'https://github.com/sponsors/crstian19' },
-					bmc:    { name: 'Buy Me a Coffee',  url: 'https://buymeacoffee.com/crstian' },
+					kofi:   { name: 'Ko-fi',            url: 'https://ko-fi.com/crstian' },
 					paypal: { name: 'PayPal',            url: 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MUW2XFMQB2782' },
 				};
 
@@ -3536,7 +3536,7 @@ const categories = await Promise.all(
 
 	.support-card-icon--github { background: rgba(255,255,255,0.06); color: var(--text); }
 	.support-card-icon--github svg { width: 1.2rem; height: 1.2rem; }
-	.support-card-icon--bmc { background: rgba(255,221,0,0.1); }
+	.support-card-icon--kofi { background: rgba(255,94,91,0.1); }
 	.support-card-icon--paypal { background: rgba(0,69,124,0.2); }
 
 	.support-card-name {
