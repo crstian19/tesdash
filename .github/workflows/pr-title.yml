@@ -1,0 +1,23 @@
+name: PR title
+
+# PRs are squash-merged and the PR title becomes the commit on main, which is
+# what releaser-pleaser reads to pick the next version. So the title has to be
+# a Conventional Commit: feat bumps the minor, fix the patch, ! the major.
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+
+permissions:
+  pull-requests: read
+
+jobs:
+  conventional:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

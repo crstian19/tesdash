@@ -91,6 +91,18 @@ services:
 
 Images are published automatically on every version tag for `amd64` and `arm64`.
 
+### Releases
+
+[releaser-pleaser](https://github.com/apricote/releaser-pleaser) keeps a release PR open with the
+next version and `CHANGELOG.md`, computed from the Conventional Commits on `main`: `feat` bumps the
+minor, `fix` the patch, `!` the major. PRs are squash-merged, so the PR title is the commit and has
+to follow Conventional Commits (a check enforces it). Renovate commits runtime dependency updates as
+`fix(deps)`, so they ship in the next patch release; dev dependency and CI updates are `chore(deps)`.
+
+Merging the release PR tags `vX.Y.Z`, creates the GitHub release and builds the image. The workflow
+authenticates as the `crstian19-releaser` GitHub App (secrets `RELEASER_APP_CLIENT_ID` and
+`RELEASER_APP_PRIVATE_KEY`), because a tag pushed with `GITHUB_TOKEN` would not start the build.
+
 ## Configuration
 
 Edit `src/data/config.yml` to add, remove or reorganize apps. No code changes needed.
@@ -129,7 +141,9 @@ tesdash/
 │       └── index.astro
 ├── .github/
 │   └── workflows/
-│       └── docker.yml  ← Builds and pushes Docker image on version tags
+│       ├── docker.yml             ← Builds and pushes Docker image on version tags
+│       ├── releaser-pleaser.yml   ← Release PR, tags and GitHub releases
+│       └── pr-title.yml           ← Checks PR titles are Conventional Commits
 ├── Dockerfile
 ├── astro.config.mjs
 └── package.json
