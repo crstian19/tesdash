@@ -7,6 +7,7 @@
 		"dev": "astro dev",
 		"prebuild": "node scripts/write-me-config.mjs",
 		"build": "astro build",
+		"check": "astro check",
 		"preview": "astro preview",
 		"test": "vitest run",
 		"test:e2e": "playwright test",
@@ -22,6 +23,7 @@
 		"three": "^0.187.0"
 	},
 	"devDependencies": {
+		"@astrojs/check": "^0.9.12",
 		"@playwright/test": "^1.63.0",
 		"@sveltejs/vite-plugin-svelte": "^7.3.0",
 		"@tailwindcss/vite": "^4.2.4",

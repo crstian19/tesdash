@@ -1,7 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "github>crstian19/.github:renovate-config",
-    ":semanticCommits"
+    "config:recommended"
+  ],
+  "packageRules": [
+    {
+      "description": "Hold TypeScript below 7: astro check (@astrojs/language-server) refuses TS 7. Lift this once it supports TS 7 on its own.",
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "<7"
+    }
   ]
 }
