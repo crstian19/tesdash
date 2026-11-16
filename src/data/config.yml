@@ -293,6 +293,10 @@ categories:
         logo: /logos/xbox-cloud.webp
   - name: Community
     apps:
+      - name: Steam Six
+        url: https://steamsix.pages.dev
+        logo: /logos/steamsix.svg
+        color: "#4F9BD9"
       - name: TeslaWave
         url: https://teslawave.app
         logo: /logos/teslawave.svg
