@@ -27,7 +27,7 @@
 		"@playwright/test": "^1.63.0",
 		"@sveltejs/vite-plugin-svelte": "^7.3.0",
 		"@tailwindcss/vite": "^4.2.4",
-		"@testing-library/jest-dom": "^7.0.1",
+		"@testing-library/jest-dom": "^8.0.0",
 		"@testing-library/svelte": "^5.4.2",
 		"@types/canvas-confetti": "^1.9.0",
 		"@types/sharp": "^0.32.0",
